@@ -1,12 +1,15 @@
 import React from 'react';
-import styled from '@emotion/styled';
-
-const Div = styled.div`
-  color: blue;
-`;
+import { Route, Switch } from 'react-router-dom';
+import LoginPage from './page/Login';
 
 function App() {
-  return <Div>hello-world</Div>;
+  return (
+    <>
+      <Switch>
+        <Route path="/login" component={LoginPage} />
+      </Switch>
+    </>
+  );
 }
 
 export default App;
