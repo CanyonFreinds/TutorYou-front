@@ -12,6 +12,7 @@ function GlobalStyle(): React.ReactElement {
         body {
           height: 100%;
           font-size: 62.5%;
+          margin: 0;
         }
         a {
           text-decoration: none;
