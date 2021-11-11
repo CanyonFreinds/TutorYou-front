@@ -11,6 +11,7 @@ export const Container = styled.div``;
 export const Title = styled.h2`
   margin: 0;
   font-size: 3rem;
+  user-select: none;
 `;
 
 export const Form = styled.form`
