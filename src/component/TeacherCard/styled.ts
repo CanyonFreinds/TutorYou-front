@@ -12,6 +12,7 @@ export const Container = styled.div`
   box-sizing: border-box;
   border: 1px solid #d0d0d0;
   border-radius: 10px;
+  user-select: none;
 `;
 
 export const Image = styled.img`
