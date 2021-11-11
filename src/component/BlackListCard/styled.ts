@@ -45,9 +45,9 @@ export const HateContainer = styled.div`
 
 export const SubmitButton = styled(Button)`
   position: absolute;
-  top: -1px;
-  right: -64px;
-  width: 30px;
-  height: 80px;
+  bottom: -40px;
+  left: 0px;
+  width: 180px;
+  height: 40px;
   font-size: 1.8rem;
 `;

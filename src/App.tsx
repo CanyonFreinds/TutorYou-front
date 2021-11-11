@@ -4,6 +4,7 @@ import Header from './component/Header';
 import LoginPage from './page/Login';
 import ProfilePage from './page/Profile';
 import TeachersPage from './page/Teachers';
+import AdminPage from './page/Admin';
 
 function App() {
   return (
@@ -13,6 +14,7 @@ function App() {
         <Route path="/login" component={LoginPage} />
         <Route path="/teachers" component={TeachersPage} />
         <Route path="/profile/:id" component={ProfilePage} />
+        <Route path="/admin" component={AdminPage} />
       </Switch>
     </>
   );
