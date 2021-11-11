@@ -3,7 +3,7 @@ import { Route, Switch } from 'react-router-dom';
 
 import Header from './component/Header';
 import LoginPage from './page/Login';
-import RecruitmentList from './page/RecruitmentList';
+import RecruitmentList from './page/Recruitment';
 
 function App() {
   return (
