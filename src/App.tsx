@@ -1,7 +1,9 @@
 import React from 'react';
 import { Route, Switch } from 'react-router-dom';
+
 import Header from './component/Header';
 import LoginPage from './page/Login';
+import RecruitmentList from './page/RecruitmentList';
 
 function App() {
   return (
@@ -9,8 +11,9 @@ function App() {
       <Header />
       <Switch>
         <Route path="/login" component={LoginPage} />
-      </Switch>
-    </>
+        <Route path="/recruitments" component={RecruitmentList} />
+        {/* <Route path="/recruitment/list" component={RecruitmentList} /> */}
+      </Switch>    </>
   );
 }
 
