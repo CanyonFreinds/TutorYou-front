@@ -18,6 +18,12 @@ function CareerItem({ title, values, addItem, deleteItem }: CareerItemProps) {
   const submitForm = (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     addItem(value);
+    setValue('');
+  };
+
+  const clickButton = () => {
+    addItem(value);
+    setValue('');
   };
 
   return (
@@ -25,7 +31,9 @@ function CareerItem({ title, values, addItem, deleteItem }: CareerItemProps) {
       <Style.Title>{title}</Style.Title>
       <Style.Form onSubmit={submitForm}>
         <Style.CareerInput value={value} onChange={changeInput} placeholder={`${title}을 입력해주세요`} />
-        <Style.SubmitButton color="primary">추가</Style.SubmitButton>
+        <Style.SubmitButton color="primary" onClick={clickButton}>
+          추가
+        </Style.SubmitButton>
       </Style.Form>
       <Style.ValueList>
         {values.map((value) => (
