@@ -6,9 +6,14 @@ import LoginPage from './page/Login';
 import Recruitments from './page/Recruitments';
 import ProfilePage from './page/Profile';
 import TeachersPage from './page/Teachers';
+import AdminPage from './page/Admin';
 
 import {
-  PROFILE_PAGE, LOGIN_PAGE, TEACHERS_PAGE, RECRUITMENTS_PAGE,
+  ADMIN_PAGE,
+  RECRUITMENTS_PAGE,
+  LOGIN_PAGE,
+  PROFILE_PAGE,
+  TEACHERS_PAGE,
 } from './constants';
 
 function App() {
@@ -20,6 +25,7 @@ function App() {
         <Route path={RECRUITMENTS_PAGE} component={Recruitments} />
         <Route path={TEACHERS_PAGE} component={TeachersPage} />
         <Route path={`${PROFILE_PAGE}/:id`} component={ProfilePage} />
+        <Route path={ADMIN_PAGE} component={AdminPage} />
       </Switch>
     </>
   );
