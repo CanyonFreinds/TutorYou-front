@@ -16,8 +16,8 @@ export const Image = styled.img`
 `;
 
 export const DummyImage = styled.div`
-  max-width: 100%;
-  max-height: 100%;
+  width: 100%;
+  height: 100%;
   border-radius: 10rem;
   background-color: #555;
 `;
@@ -32,10 +32,11 @@ export const Label = styled.label`
   display: flex;
   align-items: bottom;
   justify-content: space-between;
-  height: 1.8rem;
-  width: 4rem;
+  height: 3rem;
+  width: 6rem;
   padding: 4px 8px;
 
+  font-size: 1.5rem;
   box-sizing: border-box;
   border: 1px solid #ccc;
   border-radius: 5px;
@@ -44,5 +45,5 @@ export const Label = styled.label`
 `;
 
 export const PencilIcon = styled(MaterialCreateIcon)`
-  font-size: 1rem;
+  font-size: 1.5rem;
 `;
