@@ -3,18 +3,19 @@ import { Link } from 'react-router-dom';
 import * as Style from './styled';
 
 import {
-  TEACHERS_PAGE, RECRUITMENTS_PAGE,
-} from '../../constants';
+  teaturesPath,
+  recruitmentsPath,
+} from '../../Routes';
 
 function Header() {
   return (
     <Style.Container>
       <Style.Title>TutorYou</Style.Title>
       <Style.Navigator>
-        <Link to={RECRUITMENTS_PAGE}>
+        <Link to={recruitmentsPath}>
           <Style.Link>과외 찾기</Style.Link>
         </Link>
-        <Link to={TEACHERS_PAGE}>
+        <Link to={teaturesPath}>
           <Style.Link>선생님 목록</Style.Link>
         </Link>
       </Style.Navigator>
