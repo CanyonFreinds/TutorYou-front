@@ -9,23 +9,23 @@ import TeachersPage from './page/Teachers';
 import AdminPage from './page/Admin';
 
 import {
-  ADMIN_PAGE,
-  RECRUITMENTS_PAGE,
-  LOGIN_PAGE,
-  PROFILE_PAGE,
-  TEACHERS_PAGE,
-} from './constants';
+  adminPath,
+  loginPath,
+  recruitmentsPath,
+  profilePath,
+  teaturesPath,
+} from './Routes';
 
 function App() {
   return (
     <>
       <Header />
       <Switch>
-        <Route path={LOGIN_PAGE} component={LoginPage} />
-        <Route path={RECRUITMENTS_PAGE} component={Recruitments} />
-        <Route path={TEACHERS_PAGE} component={TeachersPage} />
-        <Route path={`${PROFILE_PAGE}/:id`} component={ProfilePage} />
-        <Route path={ADMIN_PAGE} component={AdminPage} />
+        <Route path={loginPath} component={LoginPage} />
+        <Route path={recruitmentsPath} component={Recruitments} />
+        <Route path={teaturesPath} component={TeachersPage} />
+        <Route path={profilePath} component={ProfilePage} />
+        <Route path={adminPath} component={AdminPage} />
       </Switch>
     </>
   );
