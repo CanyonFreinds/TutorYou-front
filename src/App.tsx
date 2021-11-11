@@ -7,15 +7,19 @@ import Recruitments from './page/Recruitments';
 import ProfilePage from './page/Profile';
 import TeachersPage from './page/Teachers';
 
+import {
+  PROFILE_PAGE, LOGIN_PAGE, TEACHERS_PAGE, RECRUITMENTS_PAGE,
+} from './constants';
+
 function App() {
   return (
     <>
       <Header />
       <Switch>
-        <Route path="/login" component={LoginPage} />
-        <Route path="/recruitments" component={Recruitments} />
-        <Route path="/teachers" component={TeachersPage} />
-        <Route path="/profile/:id" component={ProfilePage} />
+        <Route path={LOGIN_PAGE} component={LoginPage} />
+        <Route path={RECRUITMENTS_PAGE} component={Recruitments} />
+        <Route path={TEACHERS_PAGE} component={TeachersPage} />
+        <Route path={`${PROFILE_PAGE}/:id`} component={ProfilePage} />
       </Switch>
     </>
   );
