@@ -1,10 +1,10 @@
 import React from 'react';
 import * as Style from './styled';
 
-import RecruitmentListItem from '../../component/RecruitmentListItem';
+import RecruitmentListItem from '../../component/RecruitmentItem';
 import mockUpDatas from './mockUpData';
 
-function RecruitmentList() {
+function Recruitments() {
   return (
     <Style.Container>
       <Style.SearchContainer>
@@ -32,4 +32,4 @@ function RecruitmentList() {
   );
 }
 
-export default RecruitmentList;
+export default Recruitments;

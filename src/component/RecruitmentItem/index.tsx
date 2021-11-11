@@ -5,7 +5,7 @@ import * as Style from './styled';
 type PostType = '1:1' | '1:M';
 type Category = '수학' | '국어' | '영어' | '지구과학' | '화학' | '물리' | '생물' | '사회' | '코딩';
 
-export interface RecruitmentListItemProps {
+export interface RecruitmentItemProps {
   id: number;
   title: string;
   postType: PostType;
@@ -19,7 +19,7 @@ export interface RecruitmentListItemProps {
 	endDate: string;
 }
 
-function RecruitmentListItem({
+function RecruitmentItem({
   title,
   postType,
   userName,
@@ -30,7 +30,7 @@ function RecruitmentListItem({
   updatedAt,
   startDate,
   endDate,
-}: RecruitmentListItemProps) {
+}: RecruitmentItemProps) {
   return (
     <Style.Container>
       <Style.LeftContainer>
@@ -76,4 +76,4 @@ function RecruitmentListItem({
   );
 }
 
-export default RecruitmentListItem;
+export default RecruitmentItem;
