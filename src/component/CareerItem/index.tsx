@@ -1,11 +1,16 @@
 import React, { ChangeEvent, FormEvent, useState } from 'react';
 import * as Style from './styled';
 
+export interface CareerType {
+  careerId: string;
+  content: string;
+}
+
 interface CareerItemProps {
   title: string;
-  values: string[];
+  values: CareerType[];
   addItem: (value: string) => void;
-  deleteItem: (value: string) => void;
+  deleteItem: (id: string) => void;
 }
 
 function CareerItem({ title, values, addItem, deleteItem }: CareerItemProps) {
@@ -38,14 +43,14 @@ function CareerItem({ title, values, addItem, deleteItem }: CareerItemProps) {
       <Style.ValueList>
         {values.map((value) => (
           <Style.ValueItem
-            key={value}
+            key={value.careerId}
             secondaryAction={
-              <Style.IconWrapper onClick={() => deleteItem(value)}>
+              <Style.IconWrapper onClick={() => deleteItem(value.careerId)}>
                 <Style.DeleteIcon />
               </Style.IconWrapper>
             }
           >
-            {value}
+            {value.content}
           </Style.ValueItem>
         ))}
       </Style.ValueList>
