@@ -3,7 +3,7 @@ import * as Style from './styled';
 
 interface ProfileImageProps {
   imageSrc?: string;
-  changeImage: (file: File) => void;
+  changeImage: (file: FormData) => void;
 }
 
 function ProfileImage({ imageSrc, changeImage }: ProfileImageProps) {
@@ -11,7 +11,9 @@ function ProfileImage({ imageSrc, changeImage }: ProfileImageProps) {
     const fileList = event.target.files;
 
     if (!fileList) return;
-    changeImage(fileList[0]);
+    const formData = new FormData();
+    formData.append('image', fileList[0]);
+    changeImage(formData);
   };
 
   return (
