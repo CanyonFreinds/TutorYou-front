@@ -1,8 +1,10 @@
 /* eslint-disable react/jsx-props-no-spreading */
-import React, { useState, ChangeEvent } from 'react';
+import React, { useState, ChangeEvent, useEffect } from 'react';
 import DatePicker, { registerLocale }  from "react-datepicker";
 import ko from 'date-fns/locale/ko';
 import * as Style from './styled';
+
+import MarkdownEditor from '../../component/MarkdownEditor';
 
 registerLocale('ko', ko);
 
@@ -29,6 +31,10 @@ const initialValues = {
 function RecruitmentWrite() {
   const [values, setValues] = useState<InitialValue>(initialValues);
 
+  useEffect(() => {
+    if (values.postType === '1:1') setValues({ ...values, totalStudentCount: 1 });
+  }, [values.postType]);
+
   const onChangeTextField = (event: ChangeEvent<HTMLInputElement>) => {
     const { name, value } = event.target;
     setValues({ ...values, [name]: value });
@@ -52,8 +58,13 @@ function RecruitmentWrite() {
 
   const onChangeTotalStudentCount = (event: any) => {
     if (event.target.value < 1) return;
-    setValues({ ...values, totalStudentCount: event.target.value });
+    setValues({ ...values, totalStudentCount: Number(event.target.value) });
   };
+
+  const onChangeContent = (content: string) => {
+    setValues({ ...values, content });
+    console.log(values);
+  } 
 
   return (
     <Style.Container>
@@ -112,6 +123,7 @@ function RecruitmentWrite() {
               label="모집 인원"
               onChange={onChangeTotalStudentCount}
               type="number"
+              disabled={values.postType === '1:1'}
             /> 
           </Style.PostTypeSelectContainer>
         </Style.Selects>
@@ -143,6 +155,8 @@ function RecruitmentWrite() {
             />
           </Style.DateContainerWithLabel>
         </Style.DatePickerContainer>
+
+        <MarkdownEditor onChange={onChangeContent} />
       </Style.Form>
     </Style.Container>
   );
