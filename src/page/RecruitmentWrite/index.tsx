@@ -63,14 +63,12 @@ function RecruitmentWrite() {
 
   const onChangeContent = (content: string) => {
     setValues({ ...values, content });
-    console.log(values);
   }; 
 
   // Todo: API 연동
   // Todo: 회원 정보도 받아 와야함
   const onSubmitForm = (event: any) => {
     event.preventDefault();
-    console.log('제출');
   };
 
   return (
