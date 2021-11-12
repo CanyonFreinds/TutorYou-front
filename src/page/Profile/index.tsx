@@ -1,9 +1,11 @@
 import React, { useState } from 'react';
+import { useHistory } from 'react-router-dom';
+import Modal from '@mui/material/Modal';
 import * as Style from './styled';
 import CareerItem, { CareerType } from '../../component/CareerItem';
 import ProfileImage from '../../component/ProfileImage';
 import { addUserCareerAPI, deleteUserCareerapi } from '../../api/career';
-import { updateUserImageAPI } from '../../api/user';
+import { updateUserImageAPI, changePasswordAPI, deleteUserAPI } from '../../api/user';
 
 type SortType = 'Teacher' | 'Student' | 'Admin' | 'None';
 
@@ -17,6 +19,10 @@ interface ProfileType {
 }
 
 function Profile() {
+  const history = useHistory();
+  const [open, setOpen] = useState(false);
+  const [beforePassword, setBeforePassword] = useState('');
+  const [afterPassword, setAfterPassword] = useState('');
   const [info, setInfo] = useState<ProfileType>({
     sort: 'None',
     nickname: '',
@@ -25,6 +31,10 @@ function Profile() {
     awardCareer: [],
     tutorCareer: [],
   });
+
+  const toggleModal = () => {
+    setOpen(!open);
+  };
 
   const changeImage = async (formData: FormData) => {
     const result = await updateUserImageAPI({ formData, userId: '' });
@@ -65,16 +75,46 @@ function Profile() {
     }
   };
 
+  const removeUser = async () => {
+    const result = await deleteUserAPI({ userId: '' });
+    if (result) {
+      history.push('/');
+    }
+  };
+
+  const changePassword = async () => {
+    await changePasswordAPI({ userId: '', beforePassword, afterPassword });
+  };
+
   return (
     <Style.Container>
+      <Modal open={open} onClose={toggleModal}>
+        <Style.ModalBox>
+          <Style.PasswordInput
+            value={beforePassword}
+            placeholder="이전 비밀번호"
+            onChange={(event) => setBeforePassword(event.target.value)}
+          />
+          <Style.PasswordInput
+            value={afterPassword}
+            placeholder="바꿀 비밀번호"
+            onChange={(event) => setAfterPassword(event.target.value)}
+          />
+          <Style.ChangeButton onClick={changePassword}>변경하기</Style.ChangeButton>
+        </Style.ModalBox>
+      </Modal>
       <Style.Header>
         <ProfileImage imageSrc={info.imageSrc} changeImage={changeImage} />
         <Style.Nickname>{info.nickname}</Style.Nickname>
         선생님 안녕하세요. 👋
       </Style.Header>
       <Style.ButtonWrapper>
-        <Style.ModifyButton variant="outlined">비밀번호 변경</Style.ModifyButton>
-        <Style.ModifyButton variant="contained">회원 탈퇴</Style.ModifyButton>
+        <Style.ModifyButton variant="outlined" onClick={toggleModal}>
+          비밀번호 변경
+        </Style.ModifyButton>
+        <Style.ModifyButton variant="contained" onClick={removeUser}>
+          회원 탈퇴
+        </Style.ModifyButton>
       </Style.ButtonWrapper>
       {info.sort === 'Teacher' && (
         <Style.CareerList>
