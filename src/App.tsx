@@ -7,14 +7,9 @@ import Recruitments from './page/Recruitments';
 import ProfilePage from './page/Profile';
 import TeachersPage from './page/Teachers';
 import AdminPage from './page/Admin';
+import GroupPage from './page/Group';
 
-import {
-  adminPath,
-  loginPath,
-  recruitmentsPath,
-  profilePath,
-  teaturesPath,
-} from './Routes';
+import { adminPath, loginPath, recruitmentsPath, profilePath, teaturesPath, groupPath } from './Routes';
 
 function App() {
   return (
@@ -26,6 +21,7 @@ function App() {
         <Route path={teaturesPath} component={TeachersPage} />
         <Route path={profilePath} component={ProfilePage} />
         <Route path={adminPath} component={AdminPage} />
+        <Route path={groupPath} component={GroupPage} />
       </Switch>
     </>
   );

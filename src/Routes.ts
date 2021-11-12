@@ -8,3 +8,6 @@ export const adminPath = '/admin';
 
 export const profilePath = '/profile/:id';
 export const buildProfilePath = (userId: string) => `/profile/${userId}`;
+
+export const groupPath = '/group/:id';
+export const buildGroupPath = (userId: string) => `/group/${userId}`;
