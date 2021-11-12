@@ -83,6 +83,7 @@ function RecruitmentWrite() {
           inputProps={{ style: { fontSize: '3rem' } }}
           InputLabelProps={{ style: { fontSize: '2rem' } }}
           placeholder="제목을 입력해주세요"
+          required
         />
 
         <Style.Selects>
