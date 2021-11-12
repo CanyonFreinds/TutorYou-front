@@ -5,6 +5,10 @@ import MaterialNotificationsIcon from '@mui/icons-material/Notifications';
 import MaterialLogoutIcon from '@mui/icons-material/Logout';
 import MaterialSupervisorAccountIcon from '@mui/icons-material/SupervisorAccount';
 
+interface LinkProps {
+  isPath: boolean;
+}
+
 export const Container = styled.header`
   display: flex;
   align-items: center;
@@ -23,12 +27,15 @@ export const Title = styled.h1`
 
 export const Navigator = styled.nav``;
 
-export const Link = styled.span`
+export const Link = styled.span<LinkProps>`
   margin: 0 2rem;
   font-size: 2.1rem;
   font-weight: bold;
+  /* color: ${(props) => (props.isPath ? '#ff6f61' : '#fff')}; */
+  opacity: ${(props) => (props.isPath ? '1' : '0.5')};
+
   &:hover {
-    opacity: 0.7;
+    opacity: 0.9;
   }
 `;
 
