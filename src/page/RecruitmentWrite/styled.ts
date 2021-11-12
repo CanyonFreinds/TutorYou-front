@@ -78,6 +78,12 @@ export const DatePickerLabel = styled.p`
   margin-bottom: 1rem;
 `;
 
+export const DateText = styled.p`
+  font-size: 2.2rem;
+  color: #ff6f6190;
+  margin-bottom: 1rem;
+`;
+
 export const SubmitButton = styled(Button)`
   font-size: 2rem;
   color: white;
