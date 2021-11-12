@@ -1,7 +1,9 @@
 import React, { useState } from 'react';
 import * as Style from './styled';
-import CareerItem from '../../component/CareerItem';
+import CareerItem, { CareerType } from '../../component/CareerItem';
 import ProfileImage from '../../component/ProfileImage';
+import { addUserCareerAPI, deleteUserCareerapi } from '../../api/career';
+import { updateUserImageAPI } from '../../api/user';
 
 type SortType = 'Teacher' | 'Student' | 'Admin' | 'None';
 
@@ -9,9 +11,9 @@ interface ProfileType {
   sort: SortType;
   nickname: string;
   imageSrc: string;
-  schoolCareer: string[];
-  awardCareer: string[];
-  tutorCareer: string[];
+  schoolCareer: CareerType[];
+  awardCareer: CareerType[];
+  tutorCareer: CareerType[];
 }
 
 function Profile() {
@@ -24,36 +26,43 @@ function Profile() {
     tutorCareer: [],
   });
 
-  const changeImage = () => {};
-
-  const addSchoolCareer = (value: string) => {
-    if (value.length < 5 || info.schoolCareer.includes(value)) return;
-    setInfo({ ...info, schoolCareer: [...info.schoolCareer, value] });
+  const changeImage = async (formData: FormData) => {
+    const result = await updateUserImageAPI({ formData, userId: '' });
+    if (result) {
+      setInfo({ ...info, imageSrc: result });
+    }
   };
 
-  const addAwardCareer = (value: string) => {
-    if (value.length < 5 || info.awardCareer.includes(value)) return;
-    setInfo({ ...info, awardCareer: [...info.awardCareer, value] });
+  const addSchoolCareer = async (value: string) => {
+    if (value.length < 5) return;
+    const result = await addUserCareerAPI({ userId: '', careerType: 'EDUCATION_LEVEL', content: value });
+    if (result) {
+      setInfo({ ...info, schoolCareer: [...info.schoolCareer, { careerId: result.careerId, content: value }] });
+    }
   };
 
-  const addTutorCareer = (value: string) => {
-    if (value.length < 5 || info.tutorCareer.includes(value)) return;
-    setInfo({ ...info, tutorCareer: [...info.tutorCareer, value] });
+  const addAwardCareer = async (value: string) => {
+    if (value.length < 5) return;
+    const result = await addUserCareerAPI({ userId: '', careerType: 'PRIZE_EXP', content: value });
+    if (result) {
+      setInfo({ ...info, awardCareer: [...info.awardCareer, { careerId: result.careerId, content: value }] });
+    }
   };
 
-  const deleteSchoolCareer = (value: string) => {
-    const filteredCareer = info.schoolCareer.filter((career) => career !== value);
-    setInfo({ ...info, schoolCareer: filteredCareer });
+  const addTutorCareer = async (value: string) => {
+    if (value.length < 5) return;
+    const result = await addUserCareerAPI({ userId: '', careerType: 'TUTOR_EXP', content: value });
+    if (result) {
+      setInfo({ ...info, tutorCareer: [...info.tutorCareer, { careerId: result.careerId, content: value }] });
+    }
   };
 
-  const deleteAwardCareer = (value: string) => {
-    const filteredCareer = info.awardCareer.filter((career) => career !== value);
-    setInfo({ ...info, awardCareer: filteredCareer });
-  };
-
-  const deleteTutorCareer = (value: string) => {
-    const filteredCareer = info.tutorCareer.filter((career) => career !== value);
-    setInfo({ ...info, tutorCareer: filteredCareer });
+  const deleteCareer = async (id: string) => {
+    const filteredCareer = info.schoolCareer.filter((career) => career.careerId !== id);
+    const result = await deleteUserCareerapi({ userId: '', careerId: '' });
+    if (result) {
+      setInfo({ ...info, schoolCareer: filteredCareer });
+    }
   };
 
   return (
@@ -70,19 +79,14 @@ function Profile() {
       {info.sort === 'Teacher' && (
         <Style.CareerList>
           <Style.CareerItem>
-            <CareerItem
-              title="학력"
-              values={info.schoolCareer}
-              addItem={addSchoolCareer}
-              deleteItem={deleteSchoolCareer}
-            />
+            <CareerItem title="학력" values={info.schoolCareer} addItem={addSchoolCareer} deleteItem={deleteCareer} />
           </Style.CareerItem>
           <Style.CareerItem>
             <CareerItem
               title="수상 경력"
               values={info.awardCareer}
               addItem={addAwardCareer}
-              deleteItem={deleteAwardCareer}
+              deleteItem={deleteCareer}
             />
           </Style.CareerItem>
           <Style.CareerItem>
@@ -90,7 +94,7 @@ function Profile() {
               title="과외 경력"
               values={info.tutorCareer}
               addItem={addTutorCareer}
-              deleteItem={deleteTutorCareer}
+              deleteItem={deleteCareer}
             />
           </Style.CareerItem>
         </Style.CareerList>
