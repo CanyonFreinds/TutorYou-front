@@ -64,11 +64,18 @@ function RecruitmentWrite() {
   const onChangeContent = (content: string) => {
     setValues({ ...values, content });
     console.log(values);
-  } 
+  }; 
+
+  // Todo: API 연동
+  // Todo: 회원 정보도 받아 와야함
+  const onSubmitForm = (event: any) => {
+    event.preventDefault();
+    console.log('제출');
+  };
 
   return (
     <Style.Container>
-      <Style.Form>
+      <Style.Form onSubmit={onSubmitForm}>
         <Style.TitleInput
           name="title"
           value={values.title}
@@ -157,6 +164,12 @@ function RecruitmentWrite() {
         </Style.DatePickerContainer>
 
         <MarkdownEditor onChange={onChangeContent} />
+        <Style.SubmitButton
+          type="submit"
+          variant="contained"
+        >
+          작성하기
+        </Style.SubmitButton>
       </Style.Form>
     </Style.Container>
   );

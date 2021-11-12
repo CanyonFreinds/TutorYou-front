@@ -3,6 +3,7 @@ import TextField from '@mui/material/TextField';
 import Select from '@mui/material/Select';
 import MenuItem from '@mui/material/MenuItem';
 import InputLabel from '@mui/material/InputLabel';
+import Button from '@mui/material/Button';
 
 export const Container = styled.div`
   display: flex;
@@ -75,4 +76,9 @@ export const DatePickerLabel = styled.p`
   margin: 0;
   color: rgba(0, 0, 0, 0.6);
   margin-bottom: 1rem;
+`;
+
+export const SubmitButton = styled(Button)`
+  font-size: 2rem;
+  color: white;
 `;
