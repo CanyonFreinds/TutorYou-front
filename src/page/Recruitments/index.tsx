@@ -2,6 +2,7 @@ import React from 'react';
 import * as Style from './styled';
 
 import RecruitmentListItem from '../../component/RecruitmentItem';
+import RecruitmentAddFloatingActionButton from '../../component/RecruitmentAddFloatingActionButton';
 import mockUpDatas from './mockUpData';
 
 function Recruitments() {
@@ -28,6 +29,7 @@ function Recruitments() {
           />
         ))}
       </Style.ListContainer>
+      <RecruitmentAddFloatingActionButton />
     </Style.Container>
   );
 }
