@@ -3,6 +3,9 @@ export const homePath = '/';
 export const loginPath = '/login';
 
 export const recruitmentsPath = '/recruitments';
+export const recruitmentWritePath = '/recruitment/write';
+export const buildRecruitmentPath = (postId: number) => `/recruitment/${postId}`;
+
 export const teaturesPath = '/teachers';
 export const adminPath = '/admin';
 
