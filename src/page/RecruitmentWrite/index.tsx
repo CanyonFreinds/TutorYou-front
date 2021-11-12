@@ -1,6 +1,7 @@
 /* eslint-disable react/jsx-props-no-spreading */
 import React, { useState, ChangeEvent, useEffect } from 'react';
 import DatePicker, { registerLocale }  from "react-datepicker";
+import moment from 'moment';
 import ko from 'date-fns/locale/ko';
 import * as Style from './styled';
 
@@ -145,6 +146,9 @@ function RecruitmentWrite() {
               dateFormat="yyyy년 MM월 dd일"
               locale="ko"
             />
+            <Style.DateText>
+              {moment(values.startDate).format('yyyy년 MM월 DD일')}
+            </Style.DateText>
           </Style.DateContainerWithLabel>
           <Style.DateCenterDivide>
             -
@@ -159,6 +163,9 @@ function RecruitmentWrite() {
               dateFormat="yyyy년 MM월 dd일"
               locale="ko"
             />
+            <Style.DateText>
+              {moment(values.endDate).format('yyyy년 MM월 DD일')}
+            </Style.DateText>
           </Style.DateContainerWithLabel>
         </Style.DatePickerContainer>
 
