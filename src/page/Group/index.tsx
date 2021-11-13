@@ -2,12 +2,14 @@ import React, { useEffect, useState } from 'react';
 import * as Style from './styled';
 import GroupCard from '../../component/GroupCard';
 import { getGroupsAPI, GroupType } from '../../api/group';
-import { reportTeacherAPI } from '../../api/user';
+import { reportTeacherAPI, changeTeacherPoint } from '../../api/user';
 
 function Group() {
   const [groupList, setGroupList] = useState<GroupType[]>([]);
 
-  const giveStrs = () => {};
+  const giveStrs = async (groupId: number, point: number, teacherId: number) => {
+    await changeTeacherPoint({ groupId, point, teacherId, studentId: 0 });
+  };
 
   const reportTeacher = async (teacherId: number, groupId: number) => {
     await reportTeacherAPI({ studentId: 0, teacherId, groupId });

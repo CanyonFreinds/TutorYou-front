@@ -14,7 +14,7 @@ const group = {
   groupId: 0,
   teacherName: '조개소년',
   teacherId: 0,
-  studentNames: ['조개소년', '조개소년', '조개소년', '조개소년', '조개소년', '조개소년'],
+  studentNames: ['조개소년1', '조개소년2', '조개소년3', '조개소년4', '조개소년5', '조개소년6'],
 };
 
 export const teachersCard = () => (
