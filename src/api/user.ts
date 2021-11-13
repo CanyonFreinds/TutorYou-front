@@ -1,3 +1,4 @@
+/* eslint-disable no-alert */
 import axios from 'axios';
 
 export type OrderType = 'desc' | 'asc';
@@ -23,6 +24,12 @@ interface ChangePasswordAPIRequest {
   userId: string;
   beforePassword: string;
   afterPassword: string;
+}
+
+interface ReportTeacherAPIRequest {
+  groupId: number;
+  studentId: number;
+  teacherId: number;
 }
 
 export const getTeachersAPI = async ({ order = 'asc', pageNumber, query = '', sort = '' }: GetTeachersAPI) => {
@@ -85,6 +92,25 @@ export const deleteUserAPI = async ({ userId }: DeleteUserAPIRequest) => {
 
     return response.data;
   } catch (error) {
+    return false;
+  }
+};
+
+export const reportTeacherAPI = async ({ groupId, studentId, teacherId }: ReportTeacherAPIRequest) => {
+  try {
+    const response = await axios({
+      method: 'PUT',
+      url: `/api/v1/users/${teacherId}/report`,
+      data: {
+        groupId,
+        studentId,
+        msg: '',
+      },
+    });
+    alert('신고완료');
+    return response.data;
+  } catch (error) {
+    alert('error');
     return false;
   }
 };

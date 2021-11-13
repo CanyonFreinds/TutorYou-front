@@ -6,7 +6,7 @@ interface GroupCardProps {
   isTeacher: boolean;
   group: GroupType;
   giveStars: () => void;
-  reportTeacher: () => void;
+  reportTeacher: (teacherId: number, groupId: number) => void;
   fireGroup: () => void;
 }
 
@@ -29,7 +29,7 @@ function GroupCard({ group, isTeacher, giveStars, reportTeacher, fireGroup }: Gr
           <Style.ControlButton variant="contained" onClick={giveStars}>
             평점주기
           </Style.ControlButton>
-          <Style.ControlButton variant="outlined" onClick={reportTeacher}>
+          <Style.ControlButton variant="outlined" onClick={() => reportTeacher(group.teacherId, group.groupId)}>
             신고하기
           </Style.ControlButton>
         </>
