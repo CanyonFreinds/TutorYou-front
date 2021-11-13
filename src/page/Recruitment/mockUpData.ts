@@ -10,6 +10,6 @@ export default {
     startDate: '2021년 11월 10일',
     title: '봉명동 수학 과외입니다.',
     totalStudentCount: 3,
-    updatedAt: '',
+    updatedAt: '2021년 11월 11일',
     userName: '요네',
 };

@@ -5,6 +5,7 @@ import * as Style from './styled';
 import RecruitmentListItem from '../../component/RecruitmentItem';
 import RecruitmentAddFloatingActionButton from '../../component/RecruitmentAddFloatingActionButton';
 import mockUpDatas from './mockUpData';
+import { buildRecruitmentPath } from '../../Routes';
 
 function Recruitments() {
   useEffect(() => {
@@ -18,7 +19,7 @@ function Recruitments() {
       </Style.SearchContainer>
       <Style.ListContainer>
         {mockUpDatas.map(data => (
-          <Link to={`/recruitment/${data.postId}`}>
+          <Link to={buildRecruitmentPath(data.postId)}>
             <RecruitmentListItem
               key={data.postId}
               postId={data.postId}
