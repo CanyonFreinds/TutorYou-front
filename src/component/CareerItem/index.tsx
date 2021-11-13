@@ -1,16 +1,12 @@
 import React, { ChangeEvent, FormEvent, useState } from 'react';
+import { CareerType } from '../../api/career';
 import * as Style from './styled';
-
-export interface CareerType {
-  careerId: string;
-  content: string;
-}
 
 interface CareerItemProps {
   title: string;
   values: CareerType[];
   addItem: (value: string) => void;
-  deleteItem: (id: string) => void;
+  deleteItem: (id: number) => void;
 }
 
 function CareerItem({ title, values, addItem, deleteItem }: CareerItemProps) {

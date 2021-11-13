@@ -1,30 +1,22 @@
 import React from 'react';
 import * as Style from './styled';
-
-export interface InfoType {
-  imageSrc: string;
-  nickname: string;
-  hateCount: number;
-  isBlackList: boolean;
-}
+import { TeacherAdminType } from '../../api/admin';
 
 interface BlackListCardProps {
-  info: InfoType;
-  clickButton: () => void;
+  info: TeacherAdminType;
+  clickButton: (teacherId: number) => void;
 }
 
 function BlackListCard({ info, clickButton }: BlackListCardProps) {
   return (
     <Style.Container>
-      <Style.Left>
-        <Style.Image src={info.imageSrc} />
-      </Style.Left>
+      <Style.Left />
       <Style.Right>
-        <Style.Span>{info.nickname}</Style.Span>
-        <Style.HateContainer>👎 {info.hateCount}</Style.HateContainer>
+        <Style.Span>{info.teacherName}</Style.Span>
+        <Style.HateContainer>👎 {info.banCount}</Style.HateContainer>
       </Style.Right>
-      <Style.SubmitButton variant={info.isBlackList ? 'contained' : 'outlined'} onClick={clickButton}>
-        {info.isBlackList ? '해제' : '등록'}
+      <Style.SubmitButton variant={info.baned ? 'contained' : 'outlined'} onClick={() => clickButton(info.teacherId)}>
+        {info.baned ? '해제' : '등록'}
       </Style.SubmitButton>
     </Style.Container>
   );
