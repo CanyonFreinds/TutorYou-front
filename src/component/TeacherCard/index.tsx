@@ -1,15 +1,6 @@
 import React from 'react';
 import * as Style from './styled';
-
-export interface ProfileType {
-  nickname: string;
-  imageSrc: string;
-  star: number;
-  studentCount: number;
-  schoolCareer: string[];
-  awardCareer: string[];
-  tutorCareer: string[];
-}
+import { ProfileType } from '../../api/user';
 
 interface TeacherCardProps {
   profile: ProfileType;
@@ -24,11 +15,11 @@ function TeacherCard({ profile, startChatting }: TeacherCardProps) {
       </Style.Left>
       <Style.Right>
         <Style.Name>
-          {profile.nickname} ({profile.studentCount})
+          {profile.name} ({profile.studentCount})
         </Style.Name>
         <Style.StarWrapper>
           <Style.StarIcon />
-          {profile.star}
+          {profile.point}
         </Style.StarWrapper>
         <Style.ChatButton variant="contained" onClick={startChatting}>
           채팅
@@ -36,21 +27,27 @@ function TeacherCard({ profile, startChatting }: TeacherCardProps) {
         <Style.InfoList>
           <Style.InfoItem>
             <Style.CategoryName>학력</Style.CategoryName>
-            {profile.schoolCareer.map((career) => (
-              <Style.Carrier key={career}>{career}</Style.Carrier>
-            ))}
+            {profile.careers
+              .filter((career) => career.careerType === 'EDUCATION_LEVEL')
+              .map((career) => (
+                <Style.Carrier key={career.careerId}>{career}</Style.Carrier>
+              ))}
           </Style.InfoItem>
           <Style.InfoItem>
             <Style.CategoryName>수상 이력</Style.CategoryName>
-            {profile.awardCareer.map((career) => (
-              <Style.Carrier key={career}>{career}</Style.Carrier>
-            ))}
+            {profile.careers
+              .filter((career) => career.careerType === 'PRIZE_EXP')
+              .map((career) => (
+                <Style.Carrier key={career.careerId}>{career}</Style.Carrier>
+              ))}
           </Style.InfoItem>
           <Style.InfoItem>
             <Style.CategoryName>과외 경력</Style.CategoryName>
-            {profile.tutorCareer.map((career) => (
-              <Style.Carrier key={career}>{career}</Style.Carrier>
-            ))}
+            {profile.careers
+              .filter((career) => career.careerType === 'TUTOR_EXP')
+              .map((career) => (
+                <Style.Carrier key={career.careerId}>{career}</Style.Carrier>
+              ))}
           </Style.InfoItem>
         </Style.InfoList>
       </Style.Right>

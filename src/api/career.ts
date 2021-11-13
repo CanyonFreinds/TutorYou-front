@@ -1,10 +1,16 @@
 import axios from 'axios';
 
-export type CareerType = 'EDUCATION_LEVEL' | 'PRIZE_EXP' | 'TUTOR_EXP';
+export type CareerSort = 'EDUCATION_LEVEL' | 'PRIZE_EXP' | 'TUTOR_EXP';
+
+export interface CareerType {
+  careerId: number;
+  careerType: CareerSort;
+  content: string;
+}
 
 interface AddUserCareerAPIRequest {
   userId: string;
-  careerType: CareerType;
+  careerType: CareerSort;
   content: string;
 }
 

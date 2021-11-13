@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useRef, useCallback } from 'react';
 import * as Style from './styled';
-import TeacherCard, { ProfileType } from '../../component/TeacherCard';
-import { getTeachersAPI, OrderType, SortType } from '../../api/user';
+import TeacherCard from '../../component/TeacherCard';
+import { getTeachersAPI, OrderType, SortType, ProfileType } from '../../api/user';
 
 function Teachers() {
   const [pageNumber, setPageNumber] = useState(0);
@@ -23,7 +23,7 @@ function Teachers() {
   const getTeachers = async () => {
     const result = await getTeachersAPI({ query, pageNumber, order, sort });
     if (result) {
-      setProfiles([...profiles, ...result]);
+      setProfiles([...profiles, ...result.results]);
     }
   };
 

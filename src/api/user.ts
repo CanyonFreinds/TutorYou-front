@@ -1,8 +1,27 @@
 /* eslint-disable no-alert */
 import axios from 'axios';
+import { CareerType } from './career';
 
 export type OrderType = 'desc' | 'asc';
 export type SortType = 'point' | 'studentCount' | '';
+export type RoleType = 'ROLE_TEACHER' | 'ROLE_STUDENT' | 'ROLE_ADMIN' | 'NONE';
+
+export interface ProfileType {
+  id: number;
+  name: string;
+  point: number;
+  studentCount: number;
+  imageSrc: string;
+  role: RoleType[];
+  careers: CareerType[];
+}
+
+interface GetTeachersAPIResponse {
+  pageNumber: number;
+  pageSize: number;
+  total: number;
+  results: ProfileType[];
+}
 
 interface GetTeachersAPI {
   order: OrderType;
@@ -48,7 +67,7 @@ export const getTeachersAPI = async ({ order = 'asc', pageNumber, query = '', so
       url: `/api/v1/users/teachers?order=${order}&offset=${OFFSET}&pageNumber=${pageNumber}&query=${query}&sort=${sort}`,
     });
 
-    return response.data;
+    return response.data as GetTeachersAPIResponse;
   } catch (error) {
     return false;
   }
