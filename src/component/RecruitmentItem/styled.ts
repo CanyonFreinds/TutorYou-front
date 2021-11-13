@@ -26,9 +26,11 @@ export const Profile = styled(Avatar)`
 `;
 
 export const Category = styled(Chip)`
+  color: white;
 `;
 
 export const PostType = styled(Chip)`
+  color: white;
 `;
 
 export const LeftContainer = styled.div`

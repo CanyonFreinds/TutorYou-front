@@ -39,8 +39,8 @@ function RecruitmentItem({
         />
         <Style.CenterContainer>
           <Style.CenterTopContainer>
-            <Style.Category color="info" size="small" label={categoryName} />
-            <Style.PostType color="info" size="small" label={postType} />
+            <Style.Category color="primary" size="small" label={categoryName} />
+            <Style.PostType color="primary" size="small" label={postType} />
           </Style.CenterTopContainer>
           <Style.Title>
             {title}
