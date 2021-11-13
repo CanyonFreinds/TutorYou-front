@@ -3,8 +3,9 @@ import React, { useState, ChangeEvent, useEffect } from 'react';
 import DatePicker, { registerLocale }  from "react-datepicker";
 import moment from 'moment';
 import ko from 'date-fns/locale/ko';
-import * as Style from './styled';
 
+import * as Style from './styled';
+import { postRecruitmentAPI } from '../../api/recruitment';
 import MarkdownEditor from '../../component/MarkdownEditor';
 
 registerLocale('ko', ko);
@@ -68,8 +69,25 @@ function RecruitmentWrite() {
 
   // Todo: API 연동
   // Todo: 회원 정보도 받아 와야함
-  const onSubmitForm = (event: any) => {
+  const onSubmitForm = async (event: any) => {
     event.preventDefault();
+
+    const sumbitObject = {
+      categoryName: values.categoryName,
+      content: values.content,
+      endDate: moment(values.endDate).format('yyyy년 MM월 DD일'),
+      postType: values.postType,
+      startDate: moment(values.startDate).format('yyyy년 MM월 DD일'),
+      title: values.title,
+      totalStudentCount: values.totalStudentCount,
+      userId: 1, // Todo: userId
+    }
+
+    console.log('sumbitObject', sumbitObject);
+
+    const response = await postRecruitmentAPI(sumbitObject);
+
+    console.log(response);
   };
 
   return (
