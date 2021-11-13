@@ -1,6 +1,6 @@
 import React from 'react';
 import { action } from '@storybook/addon-actions';
-import BlackListCard, { InfoType } from '.';
+import BlackListCard from '.';
 
 export default {
   title: 'BlackListCard',
@@ -8,18 +8,20 @@ export default {
 };
 
 const clickAction = action('click');
-const dummyBlack: InfoType = {
-  imageSrc: 'https://avatars.githubusercontent.com/u/26402298?v=4',
-  nickname: '조개소년',
-  hateCount: 121,
-  isBlackList: true,
+const dummyBlack = {
+  point: 1.3,
+  teacherId: 0,
+  teacherName: '조개소년',
+  banCount: 121,
+  baned: true,
 };
 
-const dummyBlack2: InfoType = {
-  imageSrc: 'https://avatars.githubusercontent.com/u/26402298?v=4',
-  nickname: '조개소년',
-  hateCount: 121,
-  isBlackList: false,
+const dummyBlack2 = {
+  point: 1.2,
+  teacherId: 1,
+  teacherName: '조개소년',
+  banCount: 121,
+  baned: false,
 };
 
 export const notBlock = () => <BlackListCard info={dummyBlack} clickButton={clickAction} />;

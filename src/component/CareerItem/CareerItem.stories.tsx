@@ -1,5 +1,6 @@
 import React from 'react';
 import { action } from '@storybook/addon-actions';
+import { CareerType } from '../../api/career';
 import CareerItem from '.';
 
 export default {
@@ -9,9 +10,9 @@ export default {
 
 const addItemAction = action('add item');
 const deleteItemAction = action('delete submit');
-const dummyData = [
-  { careerId: '1', content: 'hello' },
-  { careerId: '2', content: 'bye' },
+const dummyData: CareerType[] = [
+  { careerId: 1, content: 'hello', careerType: 'EDUCATION_LEVEL' },
+  { careerId: 2, content: 'bye', careerType: 'EDUCATION_LEVEL' },
 ];
 
 export const careerItem = () => (
