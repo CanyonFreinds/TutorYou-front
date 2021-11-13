@@ -1,3 +1,4 @@
+/* eslint-disable object-shorthand */
 import React, { useState } from 'react';
 import Box from '@mui/material/Box';
 import FormControlLabel from '@mui/material/FormControlLabel';
@@ -5,7 +6,7 @@ import Radio from '@mui/material/Radio';
 import RadioGroup from '@mui/material/RadioGroup';
 import FormControl from '@mui/material/FormControl';
 import Button from '@mui/material/Button';
-
+import signUp from '../../api/signupAPI';
 import CareerItem from '../../component/Signup';
 
 import * as Style from './styled';
@@ -15,6 +16,10 @@ interface CareerType {
   value: string;
   careerArr: string[];
 }
+interface CareerFormType {
+  content: string;
+  careerType: string;
+}
 
 export default function Signup() {
   const [info, setInfo] = useState<CareerType>({
@@ -22,11 +27,16 @@ export default function Signup() {
     value: '',
     careerArr: [],
   });
+  const [signupCarArr, setSignupCarArr] = useState<CareerFormType[]>([]);
 
-  const [value, setValue] = React.useState('student');
-  const [pass, setPass] = React.useState('');
-  const [email, setEmail] = React.useState('');
-  const [pass2, setPass2] = React.useState('');
+  const [value, setValue] = useState('ROLE_STUDENT');
+  const [pass, setPass] = useState('');
+  const [name, setName] = useState('');
+  const [email, setEmail] = useState('');
+  const [pass2, setPass2] = useState('');
+  const [emailvalid, setEmailValid] = useState(false);
+  const [careerType, setCareerType] = useState('EDUCATION_LEVEL');
+
   const addCareer = (input: string) => {
     if (input.length === 0) {
       alert('경력을 입력해주세요.');
@@ -37,15 +47,18 @@ export default function Signup() {
       return;
     }
     setInfo({ ...info, careerArr: [...info.careerArr, input] });
+    setSignupCarArr([...signupCarArr, { content: input, careerType: careerType }]);
+  };
+  const handleChange = (event: any) => {
+    setValue(event.target.value);
   };
 
   const deleteCareer = (input: string) => {
     const filteredCareer = info.careerArr.filter((career) => career !== input);
     setInfo({ ...info, careerArr: filteredCareer });
   };
-
-  const handleChange = (event: any) => {
-    setValue(event.target.value);
+  const handleChangeCareer = (event: any) => {
+    setCareerType(event.target.value);
   };
 
   const onChangepass = (event: any) => {
@@ -60,13 +73,27 @@ export default function Signup() {
     setEmail(event.target.value);
   };
 
-  const checkPasswordIsSame = () => {
+  const checkFormValidation = () => {
     if (email.length === 0) {
       alert('이메일을 입력해주세요');
-    } else if (pass.length === 0 || pass2.length === 0) {
+    } else if (!emailvalid) {
+      alert('이메일 중복을 검사해주세요.');
+    } else if (name.length === 0) {
+      alert('아이디를 입력해주세요.');
+    } else if (pass.length === 0) {
       alert('비밀번호를 입력해주세요.');
+    } else if (pass2.length === 0) {
+      alert('비밀번호 확인을 해주세요');
     } else if (pass !== pass2) {
       alert('비밀번호가 일치하지 않습니다.');
+    } else {
+      signUp(email, name, pass, value, signupCarArr);
+      console.log(email);
+      console.log(name);
+      console.log(pass);
+      console.log(value);
+      console.log(signupCarArr);
+      console.log(...info.careerArr);
     }
   };
 
@@ -78,20 +105,21 @@ export default function Signup() {
       alert('이메일 형식이 일치하지 않습니다.');
     } else {
       alert('유효한 이메일입니다.');
+      setEmailValid(true);
     }
   };
 
   return (
     <FormControl required fullWidth sx={{ m: 1 }}>
       <Style.Div>
-        {value === 'teacher' && <h1>선생님 회원가입</h1>}
-        {value === 'student' && <h1>학생 회원가입</h1>}
-        {value === 'admin' && <h1>관리자 회원가입</h1>}
+        {value === 'ROLE_TEACHER' && <h1 style={{ fontSize: 'xx-large' }}>선생님 회원가입</h1>}
+        {value === 'ROLE_STUDENT' && <h1 style={{ fontSize: 'xx-large' }}>학생 회원가입</h1>}
+        {value === 'ROLE_ADMIN' && <h1 style={{ fontSize: 'xx-large' }}>관리자 회원가입</h1>}
         <FormControl component="fieldset">
-          <RadioGroup row defaultValue="student" onChange={handleChange} value={value}>
-            <FormControlLabel value="student" control={<Radio />} label="학생" />
-            <FormControlLabel value="teacher" control={<Radio />} label="선생님" />
-            <FormControlLabel value="admin" control={<Radio />} label="관리자" />
+          <RadioGroup row defaultValue="ROLE_STUDENT" onChange={handleChange}>
+            <FormControlLabel value="ROLE_STUDENT" control={<Radio />} label="학생" />
+            <FormControlLabel value="ROLE_TEACHER" control={<Radio />} label="선생님" />
+            <FormControlLabel value="ROLE_ADMIN" control={<Radio />} label="관리자" />
           </RadioGroup>
         </FormControl>
         <br />
@@ -108,6 +136,8 @@ export default function Signup() {
             <Style.Label htmlFor="email">이메일을 입력하세요.</Style.Label>
             <br />
             <Style.TextField
+              inputProps={{ style: { fontSize: '2rem' } }}
+              InputLabelProps={{ style: { fontSize: '1rem' } }}
               id="email"
               name="email"
               label="email"
@@ -119,12 +149,34 @@ export default function Signup() {
             />
           </Style.Aligndiv>
           <br />
-          <Button onClick={checkEmailValidation}>이메일 중복 검사</Button>
+          <Button id="emailBtn" onClick={checkEmailValidation}>
+            이메일 중복 검사
+          </Button>
+          <br />
+          <Style.Aligndiv>
+            <Style.Label htmlFor="name">아이디를 입력하세요.</Style.Label>
+            <br />
+            <Style.TextField
+              inputProps={{ style: { fontSize: '2rem' } }}
+              InputLabelProps={{ style: { fontSize: '1rem' } }}
+              id="name"
+              name="name"
+              label="id"
+              placeholder="사용하실 아이디를 입력해주세요."
+              variant="standard"
+              required
+              onChange={(e) => {
+                setName(e.target.value);
+              }}
+            />
+          </Style.Aligndiv>
           <br />
           <Style.Aligndiv>
             <Style.Label htmlFor="password">비밀번호를 입력하세요.</Style.Label>
             <br />
             <Style.TextField
+              inputProps={{ style: { fontSize: '2rem' } }}
+              InputLabelProps={{ style: { fontSize: '1rem' } }}
               id="password"
               name="password"
               label="password"
@@ -140,6 +192,8 @@ export default function Signup() {
             <Style.Label htmlFor="confirmpassword">비밀번호를 다시 입력해주세요</Style.Label>
             <br />
             <Style.TextField
+              inputProps={{ style: { fontSize: '2rem' } }}
+              InputLabelProps={{ style: { fontSize: '1rem' } }}
               id="confirmpassword"
               name="password2"
               label="password"
@@ -151,15 +205,25 @@ export default function Signup() {
             />
           </Style.Aligndiv>
           <br />
+
+          <br />
           <br />
         </Box>
-        {value === 'teacher' && (
+        {value === 'ROLE_TEACHER' && (
           <Style.CareerDiv>
-            <CareerItem values={info.careerArr} addItem={addCareer} deleteItem={deleteCareer} />
+            <FormControl component="fieldset">
+              <RadioGroup row onChange={handleChangeCareer} defaultValue="EDUCATION_LEVEL">
+                <FormControlLabel value="EDUCATION_LEVEL" control={<Radio />} label="학력" />
+                <FormControlLabel value="PRIZE_EXP" control={<Radio />} label="수상경력" />
+                <FormControlLabel value="TUTOR_EXP" control={<Radio />} label="과외경력" />
+              </RadioGroup>
+            </FormControl>
+            <br />
+            <CareerItem careers={info.careerArr} addItem={addCareer} deleteItem={deleteCareer} />
           </Style.CareerDiv>
         )}
         <br />
-        <Style.Button type="submit" onClick={checkPasswordIsSame} variant="contained">
+        <Style.Button type="submit" onClick={checkFormValidation} variant="contained">
           가입하기
         </Style.Button>
       </Style.Div>
