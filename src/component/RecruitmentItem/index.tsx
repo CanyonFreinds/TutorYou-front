@@ -1,23 +1,7 @@
 import React from 'react';
 import * as Style from './styled';
 
-// ref: https://stackoverflow.com/questions/37978528/typescript-type-string-is-not-assignable-to-type
-type PostType = '1:1' | '1:M';
-type Category = '수학' | '국어' | '영어' | '지구과학' | '화학' | '물리' | '생물' | '사회' | '코딩';
-
-export interface RecruitmentItemProps {
-  applicantCount: number,
-  categoryName: Category,
-  createdAt: string,
-  endDate: string,
-  postId: number,
-  postType: PostType,
-  startDate: string,
-  title: string,
-  totalStudentCount: number,
-  updatedAt: string,
-  userName: string,
-}
+import type { RecruitmentListItem } from '../../api/recruitment';
 
 function RecruitmentItem({
   title,
@@ -30,7 +14,7 @@ function RecruitmentItem({
   updatedAt,
   startDate,
   endDate,
-}: RecruitmentItemProps) {
+}: RecruitmentListItem) {
   return (
     <Style.Container>
       <Style.LeftContainer>
