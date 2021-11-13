@@ -6,22 +6,6 @@ import MarkdownViewer from '../../component/MarkdownViewer';
 import mockUpData from './mockUpData';
 import * as Style from './styled';
 
-export interface RecruitmentProps {
-  applicantCount: number;
-  categoryName: string;
-  content: string;
-  createdAt: string;
-  endDate: string;
-  groupId: number;
-  postId: number;
-  postType: string;
-  startDate: string;
-  title: string;
-  totalStudentCount: number;
-  updatedAt: string;
-  userName: string;
-}
-
 interface Params {
   postId: string;
 }
