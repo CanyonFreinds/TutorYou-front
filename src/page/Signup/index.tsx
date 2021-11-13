@@ -8,6 +8,7 @@ import FormControl from '@mui/material/FormControl';
 import Button from '@mui/material/Button';
 import signUp from '../../api/signupAPI';
 import CareerItem from '../../component/Signup';
+import checkEmail from '../../api/checkemail';
 
 import * as Style from './styled';
 
@@ -88,12 +89,6 @@ export default function Signup() {
       alert('비밀번호가 일치하지 않습니다.');
     } else {
       signUp(email, name, pass, value, signupCarArr);
-      console.log(email);
-      console.log(name);
-      console.log(pass);
-      console.log(value);
-      console.log(signupCarArr);
-      console.log(...info.careerArr);
     }
   };
 
@@ -104,7 +99,7 @@ export default function Signup() {
     } else if (!regEmail.test(email)) {
       alert('이메일 형식이 일치하지 않습니다.');
     } else {
-      alert('유효한 이메일입니다.');
+      checkEmail(email);
       setEmailValid(true);
     }
   };
