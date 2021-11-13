@@ -11,8 +11,10 @@ const starAction = action('give star');
 const reportAction = action('report teacher');
 const fireAction = action('fire group');
 const group = {
-  teacher: '조개소년',
-  students: ['조개소년', '조개소년', '조개소년', '조개소년', '조개소년', '조개소년'],
+  groupId: 0,
+  teacherName: '조개소년',
+  teacherId: 0,
+  studentNames: ['조개소년', '조개소년', '조개소년', '조개소년', '조개소년', '조개소년'],
 };
 
 export const teachersCard = () => (
