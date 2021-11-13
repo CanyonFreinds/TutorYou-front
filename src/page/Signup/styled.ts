@@ -5,14 +5,13 @@ import MaterialButton from '@mui/material/Button';
 
 export const TextField = styled(MaterialTextField)`
   width: 500px;
-  font-size: 1rem;
   align: left;
   margin-top: 20px;
 `;
 
 export const Input = styled(MaterialInput)`
   width: 500px;
-  font-size: 1rem;
+  font-size: 3rem;
   align: left;
   margin-top: 20px;
 `;
@@ -29,7 +28,7 @@ export const Aligndiv = styled.div`
 `;
 
 export const Label = styled.label`
-  font-size: 1.5rem;
+  font-size: 2rem;
   font-weight: bold;
   position: absolute;
   top: 0;
