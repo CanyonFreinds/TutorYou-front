@@ -11,7 +11,7 @@ function MarkdownEditor({ onChange }: MarkdownEditorProps) {
 
   const onChangeEditor = _.debounce(() => {
     onChange(editorRef.current.getInstance().getMarkdown());
-  }, 1000);
+  }, 500);
 
   return (
     <Editor

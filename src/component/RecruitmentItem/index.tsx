@@ -1,4 +1,5 @@
 import React from 'react';
+import moment from 'moment';
 import * as Style from './styled';
 
 // ref: https://stackoverflow.com/questions/37978528/typescript-type-string-is-not-assignable-to-type
@@ -18,6 +19,8 @@ export interface RecruitmentItemProps {
   updatedAt: string,
   userName: string,
 }
+
+const MOMENT_FORMAT = 'YYYY-MM-DD HH:MMA';
 
 function RecruitmentItem({
   title,
@@ -49,13 +52,13 @@ function RecruitmentItem({
             <Style.UserName>
               {userName}
             </Style.UserName>
-            {updatedAt ? (
+            {updatedAt !== createdAt ? (
               <Style.Date>
-                {`${updatedAt} 수정됨`}
+                {`${moment(updatedAt).format(MOMENT_FORMAT)} 수정됨`}
               </Style.Date>    
             ) : (
               <Style.Date>
-                {createdAt}
+                {moment(createdAt).format(MOMENT_FORMAT)}
               </Style.Date>
             )}
           </Style.CenterBottomContainer>

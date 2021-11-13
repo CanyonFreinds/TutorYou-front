@@ -22,13 +22,15 @@ interface InitialValue {
 
 const initialValues = {
   title: '',
-  startDate: new Date(),
-  endDate: new Date(),
+  startDate: moment().toDate(),
+  endDate: moment().toDate(),
   categoryName: '국어',
   postType: '1:1',
   totalStudentCount: 1,
   content: '',
 }
+
+const DATE_FORMAT = 'yyyy-MM-DD';
 
 function RecruitmentWrite() {
   const [values, setValues] = useState<InitialValue>(initialValues);
@@ -65,9 +67,14 @@ function RecruitmentWrite() {
 
   const onChangeContent = (content: string) => {
     setValues({ ...values, content });
-  }; 
+  };
 
-  // Todo: API 연동
+  const convertPostType = (postType: string) => {
+    if (postType === '1:1') return 'ONE_TO_ONE';
+    if (postType === '1:M') return 'ONE_TO_MANY';
+    return '1:1';
+  }
+
   // Todo: 회원 정보도 받아 와야함
   const onSubmitForm = async (event: any) => {
     event.preventDefault();
@@ -75,18 +82,16 @@ function RecruitmentWrite() {
     const sumbitObject = {
       categoryName: values.categoryName,
       content: values.content,
-      endDate: moment(values.endDate).format('yyyy년 MM월 DD일'),
-      postType: values.postType,
-      startDate: moment(values.startDate).format('yyyy년 MM월 DD일'),
+      endDate: moment(values.endDate).format(DATE_FORMAT),
+      postType: convertPostType(values.postType),
+      startDate: moment(values.startDate).format(DATE_FORMAT),
       title: values.title,
       totalStudentCount: values.totalStudentCount,
       userId: 1, // Todo: userId
     }
 
     console.log('sumbitObject', sumbitObject);
-
     const response = await postRecruitmentAPI(sumbitObject);
-
     console.log(response);
   };
 
@@ -161,12 +166,12 @@ function RecruitmentWrite() {
             <DatePicker
               selected={values.startDate}
               onChange={onChangeStartDate}
-              dateFormat="yyyy년 MM월 dd일"
+              dateFormat='yyyy년 MM월 dd일'
               locale="ko"
             />
-            <Style.DateText>
-              {moment(values.startDate).format('yyyy년 MM월 DD일')}
-            </Style.DateText>
+            {/* <Style.DateText>
+              {moment(values.startDate).format(DATE_FORMAT)}
+            </Style.DateText> */}
           </Style.DateContainerWithLabel>
           <Style.DateCenterDivide>
             -
@@ -178,12 +183,12 @@ function RecruitmentWrite() {
             <DatePicker
               selected={values.endDate}
               onChange={onChangeEndDate}
-              dateFormat="yyyy년 MM월 dd일"
+              dateFormat='yyyy년 MM월 dd일'
               locale="ko"
             />
-            <Style.DateText>
-              {moment(values.endDate).format('yyyy년 MM월 DD일')}
-            </Style.DateText>
+            {/* <Style.DateText>
+              {moment(values.endDate).format(DATE_FORMAT)}
+            </Style.DateText> */}
           </Style.DateContainerWithLabel>
         </Style.DatePickerContainer>
 

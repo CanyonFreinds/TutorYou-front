@@ -1,5 +1,6 @@
 import React from 'react';
-import { Viewer } from '@toast-ui/react-editor';
+import ReactMarkdown from 'react-markdown';
+import * as Style from './styled';
 
 interface MarkdownViewerProps {
   content: string;
@@ -7,9 +8,11 @@ interface MarkdownViewerProps {
 
 function MarkdownViewer({ content }: MarkdownViewerProps) {
   return (
-    <>
-      <Viewer initialValue={content} />
-    </>
+    <Style.Container>
+      <ReactMarkdown>
+        {content}
+      </ReactMarkdown>
+    </Style.Container>
   );
 }
 
