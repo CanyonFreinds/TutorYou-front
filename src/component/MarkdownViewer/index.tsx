@@ -7,7 +7,9 @@ interface MarkdownViewerProps {
 
 function MarkdownViewer({ content }: MarkdownViewerProps) {
   return (
-    <Viewer initialValue={content} />
+    <>
+      <Viewer initialValue={content} />
+    </>
   );
 }
 
