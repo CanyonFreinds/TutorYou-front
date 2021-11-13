@@ -5,7 +5,6 @@ import moment from 'moment';
 import { useRecruitmentPostContext } from '../../context/RecruitmentPostContext';
 import MarkdownViewer from '../../component/MarkdownViewer';
 import { getRecruitmentAPI } from '../../api/recruitment';
-// import mockUpData from './mockUpData';
 import * as Style from './styled';
 import { MOMENT_FORMAT } from '../../constants';
 
@@ -17,16 +16,13 @@ function Recruitment() {
   const { postId } = useParams<Params>();
   const { setCurrentPost, currentPost }: any = useRecruitmentPostContext();
 
-  useEffect(() => {
-    // API 호출 및 context state 저장
-    // setCurrentPost(mockUpData);    
+  useEffect(() => { 
     (async () => {
       const recruitment = await getRecruitmentAPI({ postId: Number(postId) });
       console.log('recruitment', recruitment);
       
       setCurrentPost(recruitment);
     })();
-
   }, []);
 
   return (
