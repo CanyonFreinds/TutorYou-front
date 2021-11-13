@@ -8,12 +8,14 @@ export const Input = styled(MaterialInput)`
   font-size: 1.5rem;
   border-radius: 5px;
   margin: 2rem;
+  fontsize: 'xx-large' !important;
 `;
 
 export const TextField = styled(MaterialTextField)`
   width: 10rem;
   align: left;
   margin: 20px;
+  fontsize: 'xx-large' !important;
 `;
 
 export const Div = styled.div`
@@ -22,9 +24,6 @@ export const Div = styled.div`
   top: 50%;
   transform: translate(-50%, -50%);
   text-align: center;
-  //   text-align: center;
-  //   margin-top: 2rem;
-  //   justify: center;
 `;
 export const Button = styled(MaterialButton)`
   margin: 2rem;
