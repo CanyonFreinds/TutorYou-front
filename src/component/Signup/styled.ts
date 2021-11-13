@@ -26,6 +26,7 @@ export const Button = styled(MaterialButton)`
 export const ValueItem = styled(ListItem)`
   padding: 8px 0px 8px 0px;
   font-size: 1rem;
+  margin: 5px;
 `;
 
 export const ValueList = styled(List)`
@@ -43,7 +44,7 @@ export const Div = styled.div`
 `;
 
 export const Label = styled.label`
-  font-size: 1.5rem;
+  font-size: 2rem;
   font-weight: bold;
   position: absolute;
   top: 0;
