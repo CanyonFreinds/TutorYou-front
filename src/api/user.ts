@@ -26,6 +26,13 @@ interface ChangePasswordAPIRequest {
   afterPassword: string;
 }
 
+interface ChangeTeacherAPIRequest {
+  groupId: number;
+  point: number;
+  studentId: number;
+  teacherId: number;
+}
+
 interface ReportTeacherAPIRequest {
   groupId: number;
   studentId: number;
@@ -92,6 +99,25 @@ export const deleteUserAPI = async ({ userId }: DeleteUserAPIRequest) => {
 
     return response.data;
   } catch (error) {
+    return false;
+  }
+};
+
+export const changeTeacherPoint = async ({ groupId, point, studentId, teacherId }: ChangeTeacherAPIRequest) => {
+  try {
+    const response = await axios({
+      method: 'PUT',
+      url: `/api/v1/users/${teacherId}/point`,
+      data: {
+        groupId,
+        point,
+        studentId,
+      },
+    });
+    alert('제출완료');
+    return response.data;
+  } catch (error) {
+    alert('error');
     return false;
   }
 };
