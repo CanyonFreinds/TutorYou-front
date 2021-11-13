@@ -18,7 +18,7 @@ interface InitialValue {
   postType: string;
   totalStudentCount: number;
   content: string;
-} 
+}
 
 const initialValues = {
   title: '',

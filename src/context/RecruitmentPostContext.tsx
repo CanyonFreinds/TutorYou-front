@@ -6,8 +6,7 @@ import React, {
   ReactChildren,
   ReactElement,
 } from 'react';
-import type { RecruitmentProps } from '../page/Recruitment';
-import type { RecruitmentItemProps } from '../component/RecruitmentItem';
+import type { RecruitmentListItem, Recruitment } from '../api/recruitment';
 
 const RecruitmentPostContext = createContext<Record<string, unknown>>({});
 
@@ -30,8 +29,8 @@ const initialCurrentPostState = {
 const RecruitmentPostProvider = (
   { children }: { children?: ReactChild | ReactChildren | ReactChild[] },
 ): ReactElement => {
-  const [currentPost, setCurrentPost] = useState<RecruitmentProps>(initialCurrentPostState);
-  const [currentPostList, setCurrentPostList] = useState<RecruitmentItemProps[]>([]);
+  const [currentPost, setCurrentPost] = useState<Recruitment>(initialCurrentPostState);
+  const [currentPostList, setCurrentPostList] = useState<RecruitmentListItem[]>([]);
 
   return (
     <RecruitmentPostContext.Provider
