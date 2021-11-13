@@ -1,6 +1,10 @@
 import styled from '@emotion/styled';
 import NativeSelect from '@mui/material/NativeSelect';
 
+interface TitleProps {
+  selected: boolean;
+}
+
 export const Container = styled.main`
   width: 1000px;
   display: flex;
@@ -25,10 +29,14 @@ export const TitleWrapper = styled.div`
   margin-bottom: 2rem;
 `;
 
-export const Title = styled.h2`
+export const Title = styled.h2<TitleProps>`
+  display: inline-block;
+  width: 200px;
+  text-align: center;
   margin: 0;
   margin-right: 3rem;
   font-size: 2.5rem;
+  color: ${(props) => (props.selected ? '#ff6f61' : '#000')};
 `;
 
 export const CardList = styled.ul`
