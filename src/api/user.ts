@@ -1,5 +1,15 @@
 import axios from 'axios';
 
+export type OrderType = 'desc' | 'asc';
+export type SortType = 'point' | 'studentCount' | '';
+
+interface GetTeachersAPI {
+  order: OrderType;
+  pageNumber: number;
+  query: string;
+  sort: SortType;
+}
+
 interface UpdateUserImageAPIRequest {
   formData: any;
   userId: string;
@@ -14,6 +24,21 @@ interface ChangePasswordAPIRequest {
   beforePassword: string;
   afterPassword: string;
 }
+
+export const getTeachersAPI = async ({ order = 'asc', pageNumber, query = '', sort = '' }: GetTeachersAPI) => {
+  try {
+    const OFFSET = 20;
+
+    const response = await axios({
+      method: 'GET',
+      url: `/api/v1/users/teachers?order=${order}&offset=${OFFSET}&pageNumber=${pageNumber}&query=${query}&sort=${sort}`,
+    });
+
+    return response.data;
+  } catch (error) {
+    return false;
+  }
+};
 
 export const updateUserImageAPI = async ({ formData, userId }: UpdateUserImageAPIRequest) => {
   try {
