@@ -6,24 +6,24 @@ type PostType = '1:1' | '1:M';
 type Category = '수학' | '국어' | '영어' | '지구과학' | '화학' | '물리' | '생물' | '사회' | '코딩';
 
 export interface RecruitmentItemProps {
-  id: number;
-  title: string;
-  postType: PostType;
-  userName: string;
-  category: Category;
-  totalStudentCount: number;
-  applicantCount: number;
-  createdAt: string;
-	updatedAt: string;
-	startDate: string;
-	endDate: string;
+  applicantCount: number,
+  categoryName: Category,
+  createdAt: string,
+  endDate: string,
+  postId: number,
+  postType: PostType,
+  startDate: string,
+  title: string,
+  totalStudentCount: number,
+  updatedAt: string,
+  userName: string,
 }
 
 function RecruitmentItem({
   title,
   postType,
   userName,
-  category,
+  categoryName,
   totalStudentCount,
   applicantCount,
   createdAt,
@@ -39,7 +39,7 @@ function RecruitmentItem({
         />
         <Style.CenterContainer>
           <Style.CenterTopContainer>
-            <Style.Category color="info" size="small" label={category} />
+            <Style.Category color="info" size="small" label={categoryName} />
             <Style.PostType color="info" size="small" label={postType} />
           </Style.CenterTopContainer>
           <Style.Title>
