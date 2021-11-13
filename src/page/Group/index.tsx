@@ -1,15 +1,27 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import * as Style from './styled';
-import GroupCard, { GroupType } from '../../component/GroupCard';
+import GroupCard from '../../component/GroupCard';
+import { getGroupsAPI, GroupType } from '../../api/group';
 
 function Group() {
-  const [groupList] = useState<GroupType[]>([]);
+  const [groupList, setGroupList] = useState<GroupType[]>([]);
 
   const giveStrs = () => {};
 
   const reportTeacher = () => {};
 
   const fireGroup = () => {};
+
+  const getGroups = async () => {
+    const result = await getGroupsAPI({ userId: '' });
+    if (result) {
+      setGroupList(result);
+    }
+  };
+
+  useEffect(() => {
+    getGroups();
+  }, []);
 
   return (
     <Style.Container>

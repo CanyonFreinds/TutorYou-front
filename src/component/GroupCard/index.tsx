@@ -1,10 +1,6 @@
 import React from 'react';
 import * as Style from './styled';
-
-export interface GroupType {
-  teacher: string;
-  students: string[];
-}
+import { GroupType } from '../../api/group';
 
 interface GroupCardProps {
   isTeacher: boolean;
@@ -17,10 +13,10 @@ interface GroupCardProps {
 function GroupCard({ group, isTeacher, giveStars, reportTeacher, fireGroup }: GroupCardProps) {
   return (
     <Style.Container>
-      <Style.Teacher>{group.teacher}</Style.Teacher>
+      <Style.Teacher>{group.teacherName}</Style.Teacher>
       <Style.Description>선생님의 그룹</Style.Description>
       <Style.StudentList>
-        {group.students.map((student) => (
+        {group.studentNames.map((student) => (
           <Style.StudentItem>{student}</Style.StudentItem>
         ))}
       </Style.StudentList>
