@@ -1,0 +1,15 @@
+export default {
+    applicantCount: 1,
+    categoryName: '수학' as const,
+    content: '# 수학 배우시죠?',
+    createdAt: '2021년 11월 1일',
+    endDate: '2021년 11월 11일',
+    groupId: 1,
+    postId: 1,
+    postType: '1:M' as const,
+    startDate: '2021년 11월 10일',
+    title: '봉명동 수학 과외입니다.',
+    totalStudentCount: 3,
+    updatedAt: '',
+    userName: '요네',
+};
