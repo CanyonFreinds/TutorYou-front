@@ -1,10 +1,13 @@
 import React, { useEffect } from 'react';
 import { useParams } from 'react-router-dom';
+import moment from 'moment';
 
 import { useRecruitmentPostContext } from '../../context/RecruitmentPostContext';
 import MarkdownViewer from '../../component/MarkdownViewer';
-import mockUpData from './mockUpData';
+import { getRecruitmentAPI } from '../../api/recruitment';
+// import mockUpData from './mockUpData';
 import * as Style from './styled';
+import { MOMENT_FORMAT } from '../../constants';
 
 interface Params {
   postId: string;
@@ -16,8 +19,14 @@ function Recruitment() {
 
   useEffect(() => {
     // API 호출 및 context state 저장
-    setCurrentPost(mockUpData);
-    console.log('postId', postId, currentPost.content);
+    // setCurrentPost(mockUpData);    
+    (async () => {
+      const recruitment = await getRecruitmentAPI({ postId: Number(postId) });
+      console.log('recruitment', recruitment);
+      
+      setCurrentPost(recruitment);
+    })();
+
   }, []);
 
   return (
@@ -30,13 +39,13 @@ function Recruitment() {
           {currentPost.userName} 
         </Style.UserName>
         <Style.CreatedAt>
-          {currentPost.updatedAt ? (
+          {currentPost.updatedAt !== currentPost.createdAt ? (
             <>
-              {`${currentPost.updatedAt}에 수정됨`}
+              {`${moment(currentPost.updatedAt).format(MOMENT_FORMAT)}에 수정됨`}
             </>
           ) : (
             <>
-              {`${currentPost.createdAt}에 생성됨`}
+              {`${moment(currentPost.createdAt).format(MOMENT_FORMAT)}에 생성됨`}
             </>
           )}
         </Style.CreatedAt>
