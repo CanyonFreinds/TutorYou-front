@@ -1,19 +1,24 @@
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
 
 import Box from '@mui/material/Box';
 import GoogleIcon from '@mui/icons-material/Google';
 import GitHubIcon from '@mui/icons-material/GitHub';
 import * as Style from './styled';
-import signupApi from '../../api/loginAPI';
+import { loginAPI } from '../../api/loginAPI';
+import { userStateContext } from '../../context/UserContext';
 
 function Login() {
   const [email, setEmail] = useState('');
   const [pwd, setPwd] = useState('');
-  const login = () => {
+  const { dispatch } = useContext(userStateContext);
+  const login = async () => {
     if (email === '' || pwd === '') {
       window.alert('아이디와 비밀번호를 입력해주세요.');
     } else {
-      signupApi(email, pwd);
+      const result = await loginAPI({ email, password: pwd });
+      if (result && dispatch) {
+        dispatch({ type: 'login', payload: result });
+      }
     }
   };
   const theme = {

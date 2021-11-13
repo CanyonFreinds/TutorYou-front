@@ -1,4 +1,5 @@
 import React from 'react';
+import axios from 'axios';
 import { Route, Switch } from 'react-router-dom';
 import Header from './component/Header';
 import LoginPage from './page/Login';
@@ -11,7 +12,19 @@ import AdminPage from './page/Admin';
 import GroupPage from './page/Group';
 import SignupPage from './page/Signup';
 
-import { adminPath, loginPath, recruitmentsPath, recruitmentPath, recruitmentWritePath, profilePath, teaturesPath, groupPath, signupPath } from './Routes';
+import {
+  adminPath,
+  loginPath,
+  recruitmentsPath,
+  recruitmentPath,
+  recruitmentWritePath,
+  profilePath,
+  teaturesPath,
+  groupPath,
+  signupPath,
+} from './Routes';
+
+axios.defaults.baseURL = `http://13.209.190.73:8080`;
 
 function App() {
   return (
