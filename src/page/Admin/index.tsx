@@ -36,7 +36,7 @@ function Admin() {
     }
   };
 
-  const toggleBlacklIST = async (teacherId: number) => {
+  const toggleBlackList = async (teacherId: number) => {
     const result = await changeTeacherBanStateAPI({ teacherId });
     if (result) {
       const filteredList = list.filter((item) => item.teacherId !== teacherId);
@@ -83,12 +83,11 @@ function Admin() {
         </Style.Title>
       </Style.TitleWrapper>
       <Style.CardList>
-        {tab === 'teacher' &&
-          list.map((info) => (
-            <Style.CardItem>
-              <BlackListCard info={info} clickButton={toggleBlacklIST} />
-            </Style.CardItem>
-          ))}
+        {list.map((info) => (
+          <Style.CardItem>
+            <BlackListCard info={info} clickButton={toggleBlackList} />
+          </Style.CardItem>
+        ))}
       </Style.CardList>
       <div ref={loader} />
     </Style.Container>

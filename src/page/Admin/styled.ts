@@ -7,7 +7,6 @@ interface TitleProps {
 
 export const Container = styled.main`
   width: 1000px;
-  display: flex;
   margin: 0 auto;
   margin-top: 3rem;
 `;
@@ -37,6 +36,7 @@ export const Title = styled.h2<TitleProps>`
   margin-right: 3rem;
   font-size: 2.5rem;
   color: ${(props) => (props.selected ? '#ff6f61' : '#000')};
+  cursor: pointer;
 `;
 
 export const CardList = styled.ul`
