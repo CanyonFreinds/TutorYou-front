@@ -59,8 +59,8 @@ export const Title = styled.p`
 `;
 
 export const UserName = styled.p`
-  color: rgba(0, 0, 0, 0.6);
-  font-size: 1.2rem;
+  /* color: rgba(0, 0, 0, 0.6); */
+  font-size: 1.4rem;
   margin: 0;
 `;
 

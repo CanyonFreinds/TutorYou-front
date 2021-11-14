@@ -17,7 +17,7 @@ function MarkdownEditor({ onChange, initialValue }: MarkdownEditorProps) {
   return (
     <Editor
       initialEditType="markdown"
-      initialValue={initialValue || "# 이 곳에 내용을 입력해보세요"}
+      initialValue={initialValue || ''}
       previewStyle="vertical"
       height="60rem"
       ref={editorRef}

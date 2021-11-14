@@ -8,14 +8,14 @@ export const Input = styled(MaterialInput)`
   font-size: 1.5rem;
   border-radius: 5px;
   margin: 2rem;
-  fontsize: 'xx-large' !important;
+  font-size: 'xx-large' !important;
 `;
 
 export const TextField = styled(MaterialTextField)`
   width: 10rem;
   align: left;
   margin: 20px;
-  fontsize: 'xx-large' !important;
+  font-size: 'xx-large' !important;
 `;
 
 export const Div = styled.div`
@@ -24,7 +24,15 @@ export const Div = styled.div`
   top: 50%;
   transform: translate(-50%, -50%);
   text-align: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
 `;
 export const Button = styled(MaterialButton)`
-  margin: 2rem;
+  font-size: 2rem;
+  margin: 1rem;
+  height: 5rem;
+  width: 100%;
+  color: white;
 `;

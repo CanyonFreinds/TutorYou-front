@@ -79,8 +79,8 @@ function Login() {
         autoComplete="off"
       >
         <Style.TextField
-          inputProps={{ style: { fontSize: '2rem' } }}
-          InputLabelProps={{ style: { fontSize: '1rem' } }}
+          inputProps={{ style: { fontSize: '2.5rem' } }}
+          InputLabelProps={{ style: { fontSize: '2rem' } }}
           required
           fullWidth
           variant="standard"
@@ -95,8 +95,8 @@ function Login() {
         <br />
         <br />
         <Style.TextField
-          inputProps={{ style: { fontSize: '2rem' } }}
-          InputLabelProps={{ style: { fontSize: '1rem' } }}
+          inputProps={{ style: { fontSize: '2.5rem' } }}
+          InputLabelProps={{ style: { fontSize: '2rem' } }}
           theme={theme}
           required
           variant="standard"
@@ -108,19 +108,11 @@ function Login() {
           }}
         />
       </Box>
-      <Style.Button onClick={login} size="large" variant="contained">
+      <Style.Button color="info" onClick={login} size="large" variant="contained">
         로그인
       </Style.Button>
       <Style.Button size="large" variant="contained" href="signup">
         회원가입하기
-      </Style.Button>
-      <br />
-
-      <Style.Button>
-        <GitHubIcon fontSize="large" htmlColor="black" />
-      </Style.Button>
-      <Style.Button>
-        <GoogleIcon fontSize="large" htmlColor="black" />
       </Style.Button>
     </Style.Div>
   );

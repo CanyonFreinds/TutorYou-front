@@ -1,5 +1,6 @@
 import React, { useContext } from 'react';
 import { Link, useLocation, useHistory } from 'react-router-dom';
+import Tooltip from '@mui/material/Tooltip';
 import * as Style from './styled';
 import {
   teaturesPath,
@@ -45,21 +46,29 @@ function Header() {
               <Style.SupervisorAccountIcon />
             </Link>
             <Notification />
-            <Link to={buildProfilePath(state.userId)}>
-              <Style.AccountCircleIcon />
-            </Link>
+            <Tooltip title="프로필">
+              <Link to={buildProfilePath(state.userId)}>
+                <Style.AccountCircleIcon />
+              </Link>
+            </Tooltip>
           </>
         )}
         {state.userId ? (
-          <Style.LogoutIcon onClick={handleLogout} />
+          <Tooltip title="로그아웃">
+            <Style.LogoutIcon onClick={handleLogout} />
+          </Tooltip>
         ) : (
-          <Link to={loginPath}>
-            <Style.LoginIcon />
-          </Link>
+          <Tooltip title="로그인">
+            <Link to={loginPath}>
+              <Style.LoginIcon />
+            </Link>
+          </Tooltip>
         )}
-        <Link to={chatPath}>
-          <Style.MaterialChatIcon />
-        </Link>
+        <Tooltip title="채팅">
+          <Link to={chatPath}>
+            <Style.MaterialChatIcon />
+          </Link>
+        </Tooltip>
       </Style.IconContainer>
     </Style.Container>
   );
