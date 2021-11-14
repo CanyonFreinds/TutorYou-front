@@ -7,6 +7,12 @@ export interface GroupType {
   teacherName: string;
 }
 
+export interface GroupPost {
+  groupId: number;
+  student: string;
+  teacherName: string;
+}
+
 interface GetGoupsAPIRequest {
   userId: number;
 }
@@ -19,6 +25,20 @@ export const getGroupsAPI = async ({ userId }: GetGoupsAPIRequest) => {
     });
 
     return response.data as GroupType[];
+  } catch (error) {
+    return false;
+  }
+};
+
+
+export const postGroupsAPI = async ({ groupId, userId }: { groupId: number, userId: number }) => {
+  try {
+    const response = await axios({
+      method: 'POST',
+      url: `api/v1/groups/${groupId}?userId=${userId}`,
+    });
+
+    return response.data as GroupPost;
   } catch (error) {
     return false;
   }

@@ -18,7 +18,8 @@ function Recruitments() {
     // List API 호출 및 context 저장
     (async () => {
       const recruitments = await getRecruitmentsAPI({ pageNumber });
-      setCurrentPostList(recruitments)
+      setCurrentPostList(recruitments);
+      console.log('recruitments', recruitments);
       setPageNumber((prev) => prev + 1);
     })();
   }, []);
