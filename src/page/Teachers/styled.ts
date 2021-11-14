@@ -25,13 +25,12 @@ export const ProfileList = styled.ul`
   margin: 0;
   margin-top: 3rem;
   display: flex;
-  justify-content: space-between;
   flex-wrap: wrap;
   overflow: auto;
 `;
 
 export const ProfileItem = styled.li`
-  margin-bottom: 3rem;
+  margin: 0 1rem 3rem 1rem;
 `;
 
 export const SearchBox = styled.div``;
