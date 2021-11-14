@@ -23,10 +23,24 @@ function Recruitment() {
   const { postId } = useParams<Params>();
   const { setCurrentPost, currentPost }: any = useRecruitmentPostContext();
   const { state } = useContext(userStateContext);
+  
   const history = useHistory();
 
   const isCurrentUser = useMemo(() => state.name === currentPost.userName, [state.name, currentPost.userName]);
   const isStudent = useMemo(() => state.role[0] === 'ROLE_STUDENT', [state]);
+
+  useEffect(() => {
+    console.log('state.groups', state.studentGroups);
+  }, [state.studentGroups])
+
+  // const isJoinedGroup = useMemo(() => {
+  //   // groupState.currentUserGroups.includes(currentPost.groupId)
+
+  //   console.log('groupState.currentUserGroups', groupState.currentUserGroups);
+  //   console.log('currentPost.groupId', currentPost.groupId);
+    
+    
+  // }, [groupState.currentUserGroups, currentPost.groupId]);
 
   useEffect(() => { 
     (async () => {

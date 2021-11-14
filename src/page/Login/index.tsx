@@ -7,14 +7,12 @@ import * as Style from './styled';
 import { loginAPI } from '../../api/loginAPI';
 import { getGroupsAPI, GroupType } from '../../api/group';
 import { userStateContext } from '../../context/UserContext';
-import { groupStateContext } from '../../context/GroupContext';
 
 function Login() {
   const history = useHistory();
   const [email, setEmail] = useState('');
   const [pwd, setPwd] = useState('');
   const { dispatch } = useContext(userStateContext);
-  const { groupDispatch }: any = useContext(groupStateContext);
 
   const login = async () => {
     if (email === '' || pwd === '') {
@@ -26,19 +24,42 @@ function Login() {
         history.push('/');
 
         const response: any = await getGroupsAPI({ userId: result.userId });
-        console.log('response', response);
-        groupDispatch({ type: 'getGroups', payload: response });
-
         const groupIds: number[] = [];
-        response.forEach((group: GroupType) => {
-          if (group.studentNames.includes(result.name)) {
-            groupIds.push(group.groupId);
-          }
-        });
 
-        groupDispatch({ type: 'getCurrentUserGroups', payload: groupIds });
-        console.log('groupIds', groupIds);
-        
+        if (result.role[0] === 'ROLE_TEACHER') {
+          response.forEach((group: GroupType) => {
+            if (group.teacherName === result.name) {
+              groupIds.push(group.groupId);
+            }
+          });
+
+          const customResponse = {
+            ...response,
+            studentGroups: [],
+            teacherGroups: groupIds,
+          };
+
+          console.log('Teacher', customResponse);
+  
+          dispatch({ type: 'getTeacherGroups', payload: customResponse });
+
+        } else if (result.role[0] === 'ROLE_STUDENT') {
+          response.forEach((group: GroupType) => {
+            if (group.studentNames.includes(result.name)) {
+              groupIds.push(group.groupId);
+            }
+          });
+
+          const customResponse = {
+            ...response,
+            studentGroups: groupIds,
+            teacherGroups: [],
+          };
+  
+          console.log('Student', customResponse);
+
+          dispatch({ type: 'getStudentGroups', payload: customResponse });
+        }
       }
     }
   };
