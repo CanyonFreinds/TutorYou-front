@@ -3,6 +3,7 @@ import { Link, useLocation, useHistory } from 'react-router-dom';
 import * as Style from './styled';
 import { teaturesPath, recruitmentsPath, buildProfilePath, adminPath, loginPath, buildGroupPath } from '../../Routes';
 import { userStateContext } from '../../context/UserContext';
+import Notification from '../Notification';
 
 function Header() {
   const { pathname } = useLocation();
@@ -35,7 +36,7 @@ function Header() {
             <Link to={state.role[0] === 'ROLE_ADMIN' ? adminPath : buildGroupPath(state.userId)}>
               <Style.SupervisorAccountIcon />
             </Link>
-            <Style.NotificationsIcon />
+            <Notification />
             <Link to={buildProfilePath(state.userId)}>
               <Style.AccountCircleIcon />
             </Link>
