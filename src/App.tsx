@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import axios from 'axios';
 import { Route, Switch } from 'react-router-dom';
 import Header from './component/Header';
@@ -11,9 +11,6 @@ import TeachersPage from './page/Teachers';
 import AdminPage from './page/Admin';
 import GroupPage from './page/Group';
 import SignupPage from './page/Signup';
-import 'react-toastify/dist/ReactToastify.css';
-
-import { showToast } from './component/Toast';
 
 import {
   adminPath,
@@ -30,11 +27,6 @@ import {
 axios.defaults.baseURL = `http://3.36.81.52:8080`;
 
 function App() {
-  useEffect(() => {
-    console.log('show toast');
-    showToast('hi');
-  }, []);
-
   return (
     <>
       <Header />
@@ -48,7 +40,6 @@ function App() {
         <Route path={profilePath} component={ProfilePage} />
         <Route path={adminPath} component={AdminPage} />
         <Route path={groupPath} component={GroupPage} />
-        <button type="button" onClick={() => showToast('hi')}>버튼</button>
       </Switch>
     </>
   );
