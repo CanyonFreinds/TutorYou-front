@@ -100,17 +100,12 @@ export const getProfileAPI = async ({ userId }: GetProfileAPIRequest) => {
 
 export const updateUserImageAPI = async ({ formData, userId }: UpdateUserImageAPIRequest) => {
   try {
-    axios
-      .put(`/api/v1/users/${userId}/image`, formData, {
-        headers: {
-          'Content-Type': 'multipart/form-data',
-        },
-      })
-      .then((res) => {
-        return res.data;
-      })
-      .catch((errors) => console.log(errors));
-    return '';
+    const response = await axios.put(`/api/v1/users/${userId}/image`, formData, {
+      headers: {
+        'Content-Type': 'multipart/form-data',
+      },
+    });
+    return response.data;
   } catch (error) {
     return false;
   }

@@ -9,10 +9,10 @@ export const Container = styled.div`
 
 export const Image = styled.img`
   display: block;
-  max-width: 100%;
-  max-height: 100%;
+  width: 200px;
+  height: 200px;
   border-radius: 10rem;
-  object-fit: scale-down;
+  object-fit: cover;
 `;
 
 export const DummyImage = styled.div`
