@@ -25,7 +25,7 @@ interface Params {
 function Recruitment() {
   const { postId } = useParams<Params>();
   const { setCurrentPost, currentPost }: any = useRecruitmentPostContext();
-  const { state } = useContext(userStateContext);
+  const { state, dispatch } = useContext(userStateContext);
   
   const history = useHistory();
 
@@ -65,8 +65,20 @@ function Recruitment() {
     if (isStudent) {
       const response = await postGroupsAPI({ groupId: currentPost.groupId, userId: state.userId });
 
-      if (response) {
-        console.log('response', response);
+      if (response && dispatch) {
+        const object = {
+          accessToken: state.accessToken,
+          email: state.email,
+          name: state.name,
+          role: state.role,
+          userId: state.userId,
+          studentGroups :[...state.studentGroups, currentPost.groupId],
+          teacherGroups: [],
+        };
+
+        dispatch({ type: 'getStudentGroups', payload: object});
+        const recruitment = await getRecruitmentAPI({ postId: Number(postId) });    
+        setCurrentPost(recruitment);
         showToast('그룹에 참가가 되었습니다.');
       } else {
         showToast('에러가 발생했습니다.');

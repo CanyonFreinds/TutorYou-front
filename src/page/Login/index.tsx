@@ -7,6 +7,7 @@ import * as Style from './styled';
 import { loginAPI } from '../../api/loginAPI';
 import { getGroupsAPI, GroupType } from '../../api/group';
 import { userStateContext } from '../../context/UserContext';
+import { showToast } from '../../component/Toast';
 
 function Login() {
   const history = useHistory();
@@ -38,8 +39,6 @@ function Login() {
             studentGroups: [],
             teacherGroups: groupIds,
           };
-
-          console.log('Teacher', customResponse);
   
           dispatch({ type: 'getTeacherGroups', payload: customResponse });
 
@@ -56,10 +55,10 @@ function Login() {
             teacherGroups: [],
           };
   
-          console.log('Student', customResponse);
-
           dispatch({ type: 'getStudentGroups', payload: customResponse });
         }
+
+        showToast('로그인 되었습니다.');
       }
     }
   };

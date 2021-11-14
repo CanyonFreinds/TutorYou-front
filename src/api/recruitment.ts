@@ -1,7 +1,5 @@
 import axios from 'axios';
 
-axios.defaults.baseURL = 'http://3.36.81.52:8080';
-
 // ref: https://stackoverflow.com/questions/37978528/typescript-type-string-is-not-assignable-to-type
 export type PostType = '1:1' | '1:M';
 export type Category = '수학' | '국어' | '영어' | '지구과학' | '화학' | '물리' | '생물' | '사회' | '코딩';
