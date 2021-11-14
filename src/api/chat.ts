@@ -68,19 +68,3 @@ export const createChatRoom = async ({ studentId, teacherId }: CreateChatRoomReq
     return false;
   }
 };
-
-export const createChatRoom = async ({ studentId, teacherId }: CreateChatRoomRequest) => {
-  try {
-    const response = await axios({
-      method: 'POST',
-      url: `/api/v1/chats/rooms`,
-      data: {
-        studentId,
-        teacherId,
-      },
-    });
-    return response.data;
-  } catch (error) {
-    return false;
-  }
-};
