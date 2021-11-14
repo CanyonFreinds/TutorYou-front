@@ -11,7 +11,7 @@ export const TOAST_DEFAULT_DURATION_IN_MS = 3000;
 
 const useStyles = makeStyles({
   toast: {
-    backgroundColor: 'white',
+    backgroundColor: '#ff6f61',
     flexDirection: 'row',
     alignItems: 'center',
     borderWidth: '1px',
