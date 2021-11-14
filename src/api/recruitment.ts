@@ -52,6 +52,13 @@ export interface GetPosts {
   pageSize?: number;
 }
 
+type Type = 'TITLE' | 'CONTENT' | 'AUTHOR' | 'CATEGORY';
+
+export interface SearchRecruitmentProps {
+  type: Type;
+  query: string;
+}
+
 export const postRecruitmentAPI = async ({
   categoryName,
   content,
@@ -87,7 +94,7 @@ export const postRecruitmentAPI = async ({
   }
 };
 
-export const getRecruitmentsAPI = async ({ order = 'asc', pageNumber, pageSize = 10 }: GetPosts) => {
+export const getRecruitmentsAPI = async ({ order = 'asc', pageNumber, pageSize = 300 }: GetPosts) => {
   try {
     const response = await axios({
       method: 'GET',
@@ -135,6 +142,19 @@ export const deleteRecruitmentAPI = async ({ postId }: { postId: number }) => {
     });
 
     return response.data as Recruitment;
+  } catch (error) {
+    return false;
+  }
+};
+
+export const searchRecruitmentAPI = async ({ type, query }: SearchRecruitmentProps) => {
+  try {
+    const response = await axios({
+      method: 'GET',
+      url: `api/v1/posts/search?q=${query}&t=${type}&pageSize=300`,
+    });
+
+    return response.data as RecruitmentListItem[];
   } catch (error) {
     return false;
   }
