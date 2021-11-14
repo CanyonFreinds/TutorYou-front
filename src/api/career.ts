@@ -9,13 +9,13 @@ export interface CareerType {
 }
 
 interface AddUserCareerAPIRequest {
-  userId: string;
+  userId: number;
   careerType: CareerSort;
   content: string;
 }
 
 interface DeleteUserCareerAPIRequest {
-  userId: string;
+  userId: number;
   careerId: string;
 }
 

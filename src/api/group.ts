@@ -8,7 +8,7 @@ export interface GroupType {
 }
 
 interface GetGoupsAPIRequest {
-  userId: string;
+  userId: number;
 }
 
 export const getGroupsAPI = async ({ userId }: GetGoupsAPIRequest) => {

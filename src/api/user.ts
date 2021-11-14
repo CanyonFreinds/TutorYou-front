@@ -32,15 +32,15 @@ interface GetTeachersAPI {
 
 interface UpdateUserImageAPIRequest {
   formData: any;
-  userId: string;
+  userId: number;
 }
 
 interface DeleteUserAPIRequest {
-  userId: string;
+  userId: number;
 }
 
 interface ChangePasswordAPIRequest {
-  userId: string;
+  userId: number;
   beforePassword: string;
   afterPassword: string;
 }
