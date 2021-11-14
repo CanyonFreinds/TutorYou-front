@@ -64,12 +64,14 @@ function Header() {
             </Link>
           </Tooltip>
         )}
-        {state.userId && (
+        {state.userId ? (
           <Tooltip title="채팅">
             <Link to={chatPath}>
               <Style.MaterialChatIcon />
             </Link>
           </Tooltip>
+        ) : (
+          <></>
         )}
       </Style.IconContainer>
     </Style.Container>

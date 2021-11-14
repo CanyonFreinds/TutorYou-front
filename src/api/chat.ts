@@ -28,7 +28,7 @@ export const getChattingRoom = async (userId: number) => {
   try {
     const response = await axios({
       method: 'GET',
-      url: `api/v1/chats/rooms?userId=${userId}`,
+      url: `/api/v1/chats/rooms?userId=${userId}`,
     });
 
     return response.data as ChattingRoomProps[];
@@ -41,7 +41,7 @@ export const getChat = async (chatRoomId: number) => {
   try {
     const response = await axios({
       method: 'GET',
-      url: `api/v1/chats/rooms/${chatRoomId}`,
+      url: `/api/v1/chats/${chatRoomId}`,
     });
 
     return response.data as ChatProps[];
@@ -54,7 +54,7 @@ export const createChatRoom = async ({ studentId, teacherId }: CreateChatRoomReq
   try {
     const response = await axios({
       method: 'POST',
-      url: ``,
+      url: `/api/v1/chats/rooms`,
       data: {
         studentId,
         teacherId,
