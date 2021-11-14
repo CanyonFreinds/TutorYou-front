@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useContext } from 'react';
 import { Link } from 'react-router-dom';
 import * as Style from './styled';
 
@@ -7,9 +7,11 @@ import RecruitmentListItem from '../../component/RecruitmentItem';
 import RecruitmentAddFloatingActionButton from '../../component/RecruitmentAddFloatingActionButton';
 import { getRecruitmentsAPI, RecruitmentListItem as RecruitmentListItemType } from '../../api/recruitment';
 import { buildRecruitmentPath } from '../../Routes';
+import { userStateContext } from '../../context/UserContext';
 
 function Recruitments() {
   const { setCurrentPostList, currentPostList }: any = useRecruitmentPostContext();
+  const { state } = useContext(userStateContext);
   const [pageNumber, setPageNumber] = useState<number>(0);
 
   useEffect(() => {
@@ -18,7 +20,6 @@ function Recruitments() {
       const recruitments = await getRecruitmentsAPI({ pageNumber });
       setCurrentPostList(recruitments)
       setPageNumber((prev) => prev + 1);
-      console.log('recruitments', recruitments);
     })();
   }, []);
 
@@ -46,7 +47,7 @@ function Recruitments() {
           </Link>
         ))}
       </Style.ListContainer>
-      <RecruitmentAddFloatingActionButton />
+      {(state.role[0] === 'ROLE_TEACHER') && <RecruitmentAddFloatingActionButton /> }
     </Style.Container>
   );
 }
