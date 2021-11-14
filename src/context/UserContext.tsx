@@ -11,7 +11,7 @@ interface StateType {
 
 interface DispatchType {
   type: 'login' | 'logout';
-  payload: StateType;
+  payload?: StateType;
 }
 
 interface ContextType {
@@ -30,6 +30,7 @@ const initialState: StateType = {
 const userReducer = (state: StateType, action: DispatchType): StateType => {
   switch (action.type) {
     case 'login':
+      if (!action.payload) return { ...initialState };
       return {
         accessToken: action.payload.accessToken,
         email: action.payload.email,
