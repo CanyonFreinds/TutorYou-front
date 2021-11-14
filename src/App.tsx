@@ -24,7 +24,7 @@ import {
   signupPath,
 } from './Routes';
 
-axios.defaults.baseURL = `http://13.209.190.73:8080`;
+axios.defaults.baseURL = `http://3.36.81.52:8080`;
 
 function App() {
   return (

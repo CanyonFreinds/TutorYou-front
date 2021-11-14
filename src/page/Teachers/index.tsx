@@ -83,7 +83,7 @@ function Teachers() {
       </Style.Header>
       <Style.ProfileList>
         {profiles.map((profile) => (
-          <Style.ProfileItem>
+          <Style.ProfileItem key={profile.id}>
             <TeacherCard profile={profile} startChatting={startChatting} />
           </Style.ProfileItem>
         ))}

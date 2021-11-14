@@ -30,7 +30,7 @@ function TeacherCard({ profile, startChatting }: TeacherCardProps) {
             {profile.careers
               .filter((career) => career.careerType === 'EDUCATION_LEVEL')
               .map((career) => (
-                <Style.Carrier key={career.careerId}>{career}</Style.Carrier>
+                <Style.Carrier key={career.careerId}>{career.content}</Style.Carrier>
               ))}
           </Style.InfoItem>
           <Style.InfoItem>
@@ -38,7 +38,7 @@ function TeacherCard({ profile, startChatting }: TeacherCardProps) {
             {profile.careers
               .filter((career) => career.careerType === 'PRIZE_EXP')
               .map((career) => (
-                <Style.Carrier key={career.careerId}>{career}</Style.Carrier>
+                <Style.Carrier key={career.careerId}>{career.content}</Style.Carrier>
               ))}
           </Style.InfoItem>
           <Style.InfoItem>
@@ -46,7 +46,7 @@ function TeacherCard({ profile, startChatting }: TeacherCardProps) {
             {profile.careers
               .filter((career) => career.careerType === 'TUTOR_EXP')
               .map((career) => (
-                <Style.Carrier key={career.careerId}>{career}</Style.Carrier>
+                <Style.Carrier key={career.careerId}>{career.content}</Style.Carrier>
               ))}
           </Style.InfoItem>
         </Style.InfoList>
