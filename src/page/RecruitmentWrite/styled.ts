@@ -35,7 +35,7 @@ export const Selects = styled.div`
 `;
 
 export const PostTypeSelectContainer = styled.div`
-  width: 10rem;
+  width: 18rem;
 `;
 
 export const SelectContainer = styled(Select)`

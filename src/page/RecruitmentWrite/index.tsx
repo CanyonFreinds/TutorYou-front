@@ -1,102 +1,105 @@
 /* eslint-disable react/jsx-props-no-spreading */
 import React, { useState, ChangeEvent, useEffect } from 'react';
 import DatePicker, { registerLocale }  from "react-datepicker";
-import { useHistory } from "react-router-dom";
+import { useHistory, useLocation } from "react-router-dom";
 import moment from 'moment';
 import ko from 'date-fns/locale/ko';
 
 import * as Style from './styled';
-import { postRecruitmentAPI } from '../../api/recruitment';
+import { postRecruitmentAPI, putRecruitmentAPI } from '../../api/recruitment';
 import MarkdownEditor from '../../component/MarkdownEditor';
 import { buildRecruitmentPath } from '../../Routes';
 import { useRecruitmentPostContext } from '../../context/RecruitmentPostContext';
 
 registerLocale('ko', ko);
 
-interface InitialValue {
-  title: string;
-  startDate: Date;
-  endDate: Date;
-  categoryName: string;
-  postType: string;
-  totalStudentCount: number;
-  content: string;
-}
-
-const initialValues = {
-  title: '',
-  startDate: moment().toDate(),
-  endDate: moment().toDate(),
-  categoryName: '국어',
-  postType: '1:1',
-  totalStudentCount: 1,
-  content: '',
+interface LocationProps {
+  isEdit: boolean;
+  postId: number;
 }
 
 const DATE_FORMAT = 'yyyy-MM-DD';
 
 function RecruitmentWrite() {
-  const [values, setValues] = useState<InitialValue>(initialValues);
-  const { setCurrentPost }: any = useRecruitmentPostContext();
+  const [title, setTitle] = useState<string>('');
+  const [startDate, setStartDate] = useState<Date>(moment().toDate());
+  const [endDate, setEndDate] = useState<Date>(moment().toDate());
+  const [categoryName, setCategoryName] = useState<string>('국어');
+  const [postType, setPostType] = useState<string>('ONE_TO_ONE');
+  const [totalStudentCount, setTotalStudentCount] = useState<number>(1);
+  const [content, setContent] = useState<string>('');
+  const { setCurrentPost, currentPost }: any = useRecruitmentPostContext();
   const history = useHistory();
+  const location = useLocation<LocationProps>();
 
   useEffect(() => {
-    if (values.postType === '1:1') setValues({ ...values, totalStudentCount: 1 });
-  }, [values.postType]);
+    if (!location.state) return;
+    setTitle(currentPost.title);
+    setStartDate(moment(currentPost.startDate).toDate());
+    setEndDate(moment(currentPost.endDate).toDate());
+    setCategoryName(currentPost.categoryName);
+    setPostType(currentPost.postType);
+    setTotalStudentCount(currentPost.totalStudentCount);
+    setContent(currentPost.content);
+  }, []);
 
-  const onChangeTextField = (event: ChangeEvent<HTMLInputElement>) => {
-    const { name, value } = event.target;
-    setValues({ ...values, [name]: value });
+  useEffect(() => {
+    if (postType === 'ONE_TO_ONE') setTotalStudentCount(1);
+  }, [postType]);
+
+  const onChangeTitle = (event: ChangeEvent<HTMLInputElement>) => {
+    setTitle(event.target.value);
   };
 
   const onChangeStartDate = (date: Date) => {
-    setValues({ ...values, startDate: date });
+    setStartDate(date);
   };
 
   const onChangeEndDate = (date: Date) => {
-    setValues({ ...values, endDate: date });
+    setEndDate(date);
   };
 
   const onChangePostType = (event: any) => {
-    setValues({ ...values, postType: event.target.value });
+    setPostType(event.target.value)
   };
 
   const onChangeCategoryName = (event: any) => {
-    setValues({ ...values, categoryName: event.target.value });
+    setCategoryName(event.target.value);
   };
 
   const onChangeTotalStudentCount = (event: any) => {
     if (event.target.value < 1) return;
-    setValues({ ...values, totalStudentCount: Number(event.target.value) });
+    setTotalStudentCount(Number(event.target.value));
   };
 
   const onChangeContent = (content: string) => {
-    setValues({ ...values, content });
+    setContent(content);
   };
-
-  const convertPostType = (postType: string) => {
-    if (postType === '1:1') return 'ONE_TO_ONE';
-    if (postType === '1:M') return 'ONE_TO_MANY';
-    return '1:1';
-  }
 
   // Todo: 회원 정보도 받아 와야함
   const onSubmitForm = async (event: any) => {
     event.preventDefault();
 
     const sumbitObject = {
-      categoryName: values.categoryName,
-      content: values.content,
-      endDate: moment(values.endDate).format(DATE_FORMAT),
-      postType: convertPostType(values.postType),
-      startDate: moment(values.startDate).format(DATE_FORMAT),
-      title: values.title,
-      totalStudentCount: values.totalStudentCount,
+      categoryName,
+      content,
+      endDate: moment(endDate).format(DATE_FORMAT),
+      postType,
+      startDate: moment(startDate).format(DATE_FORMAT),
+      title,
+      totalStudentCount,
       userId: 1, // Todo: userId
     }
 
     console.log('sumbitObject', sumbitObject);
-    const response = await postRecruitmentAPI(sumbitObject);
+
+    let response = null;
+
+    if (location.state) {
+      response = await putRecruitmentAPI({ postId: location.state.postId, postRequest: sumbitObject });
+    } else {
+      response = await postRecruitmentAPI(sumbitObject);
+    }
     
     if (response) {
       setCurrentPost(response);
@@ -109,8 +112,8 @@ function RecruitmentWrite() {
       <Style.Form onSubmit={onSubmitForm}>
         <Style.TitleInput
           name="title"
-          value={values.title}
-          onChange={onChangeTextField}
+          value={title}
+          onChange={onChangeTitle}
           variant="standard"
           label="제목"
           inputProps={{ style: { fontSize: '3rem' } }}
@@ -124,12 +127,12 @@ function RecruitmentWrite() {
             <Style.SelectLabel htmlFor="postType">과외 타입</Style.SelectLabel>
             <Style.SelectContainer
               id="postType"
-              value={values.postType}
+              value={postType}
               variant="standard"
               onChange={onChangePostType}
             >
-              <Style.SelectMenuItem value="1:1">1:1</Style.SelectMenuItem>
-              <Style.SelectMenuItem value="1:M">1:M</Style.SelectMenuItem>
+              <Style.SelectMenuItem value="ONE_TO_ONE">ONE_TO_ONE</Style.SelectMenuItem>
+              <Style.SelectMenuItem value="ONE_TO_MANY">ONE_TO_MANY</Style.SelectMenuItem>
             </Style.SelectContainer>
           </Style.PostTypeSelectContainer>
 
@@ -137,7 +140,7 @@ function RecruitmentWrite() {
             <Style.SelectLabel htmlFor="categoryName">과외 분야</Style.SelectLabel>
             <Style.SelectContainer
               id="categoryName"
-              value={values.categoryName}
+              value={categoryName}
               variant="standard"
               onChange={onChangeCategoryName}
             >
@@ -155,14 +158,14 @@ function RecruitmentWrite() {
 
           <Style.PostTypeSelectContainer>
             <Style.TotalStudentCountInput
-              value={values.totalStudentCount}
+              value={totalStudentCount}
               variant="standard"
               InputLabelProps={{ style: { fontSize: '2rem' } }}
               inputProps={{ style: { fontSize: '2rem' } }}
               label="모집 인원"
               onChange={onChangeTotalStudentCount}
               type="number"
-              disabled={values.postType === '1:1'}
+              disabled={postType === 'ONE_TO_ONE'}
             /> 
           </Style.PostTypeSelectContainer>
         </Style.Selects>
@@ -173,14 +176,11 @@ function RecruitmentWrite() {
               과외 시작 날짜
             </Style.DatePickerLabel>
             <DatePicker
-              selected={values.startDate}
+              selected={startDate}
               onChange={onChangeStartDate}
               dateFormat='yyyy년 MM월 dd일'
               locale="ko"
             />
-            {/* <Style.DateText>
-              {moment(values.startDate).format(DATE_FORMAT)}
-            </Style.DateText> */}
           </Style.DateContainerWithLabel>
           <Style.DateCenterDivide>
             -
@@ -190,18 +190,15 @@ function RecruitmentWrite() {
               과외 종료 날짜
             </Style.DatePickerLabel>
             <DatePicker
-              selected={values.endDate}
+              selected={endDate}
               onChange={onChangeEndDate}
               dateFormat='yyyy년 MM월 dd일'
               locale="ko"
             />
-            {/* <Style.DateText>
-              {moment(values.endDate).format(DATE_FORMAT)}
-            </Style.DateText> */}
           </Style.DateContainerWithLabel>
         </Style.DatePickerContainer>
 
-        <MarkdownEditor onChange={onChangeContent} />
+        <MarkdownEditor initialValue={currentPost.content} onChange={onChangeContent} />
         <Style.SubmitButton
           type="submit"
           variant="contained"

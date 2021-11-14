@@ -9,7 +9,7 @@ import RecruitmentEditButton from '../../component/RecruitmentEditButton';
 import { getRecruitmentAPI, deleteRecruitmentAPI } from '../../api/recruitment';
 import * as Style from './styled';
 import { MOMENT_FORMAT } from '../../constants';
-import { recruitmentsPath } from '../../Routes';
+import { recruitmentsPath, recruitmentWritePath } from '../../Routes';
 
 interface Params {
   postId: string;
@@ -36,7 +36,10 @@ function Recruitment() {
   }
 
   const onClickEditButton = async () => {
-    console.log('Edit response');
+    history.push({
+      pathname: recruitmentWritePath,
+      state: { isEdit: true, postId },
+    });
   }
   
   return (
