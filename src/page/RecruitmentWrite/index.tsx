@@ -35,6 +35,13 @@ function RecruitmentWrite() {
   const location = useLocation<LocationProps>();
 
   useEffect(() => {
+    if (!state.userId) {
+      // 토스트 연결
+      console.log('로그인이 되어있지 않습니다.');
+    }
+  }, []);
+
+  useEffect(() => {
     if (!location.state) {
       setTitle('');
       setStartDate(moment().toDate());
@@ -88,7 +95,6 @@ function RecruitmentWrite() {
     setContent(content);
   };
 
-  // Todo: 회원 정보도 받아 와야함
   const onSubmitForm = async (event: any) => {
     event.preventDefault();
 
@@ -102,8 +108,6 @@ function RecruitmentWrite() {
       totalStudentCount,
       userId: state.userId,
     }
-
-    console.log('sumbitObject', sumbitObject);
 
     let response = null;
 
