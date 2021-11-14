@@ -123,6 +123,7 @@ function RecruitmentWrite() {
       showToast('글쓰기가 금지되었습니다.');
       history.replace(recruitmentsPath);
     } else if (response) {
+      showToast('글이 등록되었습니다.');
       setCurrentPost(response);
       history.replace(buildRecruitmentPath(response.postId));
     }
