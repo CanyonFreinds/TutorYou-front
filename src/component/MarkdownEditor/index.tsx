@@ -4,9 +4,10 @@ import { Editor } from '@toast-ui/react-editor';
 
 interface MarkdownEditorProps {
   onChange: (content: string) => void;
+  initialValue?: string; 
 }
 
-function MarkdownEditor({ onChange }: MarkdownEditorProps) {
+function MarkdownEditor({ onChange, initialValue }: MarkdownEditorProps) {
   const editorRef = useRef<any>(null);
 
   const onChangeEditor = _.debounce(() => {
@@ -16,7 +17,7 @@ function MarkdownEditor({ onChange }: MarkdownEditorProps) {
   return (
     <Editor
       initialEditType="markdown"
-      initialValue="# 이 곳에 내용을 입력해보세요"
+      initialValue={initialValue || "# 이 곳에 내용을 입력해보세요"}
       previewStyle="vertical"
       height="60rem"
       ref={editorRef}
