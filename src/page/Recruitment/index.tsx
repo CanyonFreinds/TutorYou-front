@@ -6,11 +6,13 @@ import { useRecruitmentPostContext } from '../../context/RecruitmentPostContext'
 import MarkdownViewer from '../../component/MarkdownViewer';
 import RecruitmentDeleteButton from '../../component/RecruitmentDeleteButton';
 import RecruitmentEditButton from '../../component/RecruitmentEditButton';
+import RecruitmentJoinButton from '../../component/RecruitmentJoinButton';
 import { getRecruitmentAPI, deleteRecruitmentAPI } from '../../api/recruitment';
 import * as Style from './styled';
 import { MOMENT_FORMAT } from '../../constants';
-import { recruitmentsPath, recruitmentWritePath } from '../../Routes';
+import { recruitmentsPath, recruitmentWritePath, loginPath } from '../../Routes';
 import { userStateContext } from '../../context/UserContext';
+import { showToast } from '../../component/Toast';
 
 interface Params {
   postId: string;
@@ -23,6 +25,7 @@ function Recruitment() {
   const history = useHistory();
 
   const isCurrentUser = useMemo(() => state.name === currentPost.userName, [state.name, currentPost.userName]);
+  const isStudent = useMemo(() => state.role[0] === 'ROLE_STUDENT', [state]);
 
   useEffect(() => { 
     (async () => {
@@ -44,6 +47,13 @@ function Recruitment() {
       pathname: recruitmentWritePath,
       state: { isEdit: true, postId },
     });
+  }
+
+  const onClickJoinButton = async () => {
+    if (!state.userId) {
+      showToast('로그인 후 참여해주세요');
+      history.push(loginPath);
+    }
   }
   
   return (
@@ -93,6 +103,7 @@ function Recruitment() {
       </Style.MarkdownContainer>
       {isCurrentUser && <RecruitmentDeleteButton onClick={onClickDeleteButton} />}
       {isCurrentUser && <RecruitmentEditButton onClick={onClickEditButton} />}
+      {!isCurrentUser && <RecruitmentJoinButton onClick={onClickJoinButton} />}
     </Style.Container>
   );
 }
