@@ -1,10 +1,18 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import * as Style from './styled';
-import { teaturesPath, recruitmentsPath, buildProfilePath, adminPath } from '../../Routes';
+import { teaturesPath, recruitmentsPath, buildProfilePath, adminPath, loginPath } from '../../Routes';
+import { userStateContext } from '../../context/UserContext';
 
 function Header() {
   const { pathname } = useLocation();
+  const { state, dispatch } = useContext(userStateContext);
+
+  const handleLogout = () => {
+    if (dispatch) {
+      dispatch({ type: 'logout' });
+    }
+  };
 
   return (
     <Style.Container>
@@ -20,15 +28,22 @@ function Header() {
         </Link>
       </Style.Navigator>
       <Style.IconContainer>
-        <Link to={adminPath}>
-          <Style.SupervisorAccountIcon />
-        </Link>
+        {state.role[0] === 'ROLE_ADMIN' && (
+          <Link to={adminPath}>
+            <Style.SupervisorAccountIcon />
+          </Link>
+        )}
         <Style.NotificationsIcon />
-        <Link to={buildProfilePath('dummy')}>
+        <Link to={buildProfilePath(state.userId)}>
           <Style.AccountCircleIcon />
         </Link>
-        <Style.LoginIcon />
-        <Style.LogoutIcon />
+        {state.userId ? (
+          <Style.LogoutIcon onClick={handleLogout} />
+        ) : (
+          <Link to={loginPath}>
+            <Style.LoginIcon />
+          </Link>
+        )}
       </Style.IconContainer>
     </Style.Container>
   );
