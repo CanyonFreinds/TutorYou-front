@@ -1,3 +1,4 @@
+/* eslint-disable no-nested-ternary */
 import React, { useEffect, useContext, useMemo } from 'react';
 import { useParams, useHistory } from 'react-router-dom';
 import moment from 'moment';
@@ -7,6 +8,8 @@ import MarkdownViewer from '../../component/MarkdownViewer';
 import RecruitmentDeleteButton from '../../component/RecruitmentDeleteButton';
 import RecruitmentEditButton from '../../component/RecruitmentEditButton';
 import RecruitmentJoinButton from '../../component/RecruitmentJoinButton';
+import RecruitmentAlreadyJoinButton from '../../component/RecruitmentAlreadyJoinButton';
+import RecruitmentFullJoinButton from '../../component/RecruitmentFullJoinButton';
 import { getRecruitmentAPI, deleteRecruitmentAPI } from '../../api/recruitment';
 import { postGroupsAPI } from '../../api/group';
 import * as Style from './styled';
@@ -26,22 +29,11 @@ function Recruitment() {
   
   const history = useHistory();
 
-  const isCurrentUser = useMemo(() => state.name === currentPost.userName, [state.name, currentPost.userName]);
+  const isPostTeacherUser = useMemo(() => state.name === currentPost.userName, [state, currentPost]);
   const isStudent = useMemo(() => state.role[0] === 'ROLE_STUDENT', [state]);
-
-  useEffect(() => {
-    console.log('state.groups', state.studentGroups);
-  }, [state.studentGroups])
-
-  // const isJoinedGroup = useMemo(() => {
-  //   // groupState.currentUserGroups.includes(currentPost.groupId)
-
-  //   console.log('groupState.currentUserGroups', groupState.currentUserGroups);
-  //   console.log('currentPost.groupId', currentPost.groupId);
-    
-    
-  // }, [groupState.currentUserGroups, currentPost.groupId]);
-
+  const isJoinedGroup = useMemo(() => state.studentGroups.includes(currentPost.groupId), [state, currentPost]);
+  const isFull = useMemo(() => currentPost.applicantCount === currentPost.totalStudentCount, [currentPost]);
+  
   useEffect(() => { 
     (async () => {
       const recruitment = await getRecruitmentAPI({ postId: Number(postId) });
@@ -55,14 +47,14 @@ function Recruitment() {
     const response = await deleteRecruitmentAPI({ postId: Number(postId) });
     console.log('delete response', response);
     history.replace(recruitmentsPath);
-  }
+  };
 
   const onClickEditButton = async () => {
     history.push({
       pathname: recruitmentWritePath,
       state: { isEdit: true, postId },
     });
-  }
+  };
 
   const onClickJoinButton = async () => {
     if (!state.userId) {
@@ -80,6 +72,14 @@ function Recruitment() {
         showToast('에러가 발생했습니다.');
       }
     }
+  };
+
+  const onClickAlreadyButton = () => {
+    showToast('이미 그룹에 참여했습니다.');
+  };
+
+  const onClickFullButton = () => {
+    showToast('인원이 가득찼습니다.');
   }
   
   return (
@@ -134,9 +134,15 @@ function Recruitment() {
       <Style.MarkdownContainer>
         <MarkdownViewer content={currentPost.content} />
       </Style.MarkdownContainer>
-      {isCurrentUser && <RecruitmentDeleteButton onClick={onClickDeleteButton} />}
-      {isCurrentUser && <RecruitmentEditButton onClick={onClickEditButton} />}
-      {!isCurrentUser && <RecruitmentJoinButton onClick={onClickJoinButton} />}
+      {isPostTeacherUser && <RecruitmentDeleteButton onClick={onClickDeleteButton} />}
+      {isPostTeacherUser && <RecruitmentEditButton onClick={onClickEditButton} />}
+      {/* 선생님이 아니고, 그룹에 조인이 안되어있다면? */}
+      {(!isPostTeacherUser && isJoinedGroup) 
+        ? <RecruitmentAlreadyJoinButton onClick={onClickAlreadyButton} /> 
+        : (
+          isFull ? <RecruitmentFullJoinButton onClick={onClickFullButton} /> : <RecruitmentJoinButton onClick={onClickJoinButton} />
+        )
+      }
     </Style.Container>
   );
 }
