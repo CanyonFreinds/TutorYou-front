@@ -1,5 +1,10 @@
 import axios from 'axios';
 
+interface CreateChatRoomRequest {
+  studentId: number;
+  teacherId: number;
+}
+
 export interface ChattingRoomProps {
   chatRoomId: number;
   studentId: number;
@@ -40,6 +45,22 @@ export const getChat = async (chatRoomId: number) => {
     });
 
     return response.data as ChatProps[];
+  } catch (error) {
+    return false;
+  }
+};
+
+export const createChatRoom = async ({ studentId, teacherId }: CreateChatRoomRequest) => {
+  try {
+    const response = await axios({
+      method: 'POST',
+      url: ``,
+      data: {
+        studentId,
+        teacherId,
+      },
+    });
+    return response.data;
   } catch (error) {
     return false;
   }
