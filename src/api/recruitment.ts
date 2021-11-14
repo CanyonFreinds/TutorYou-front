@@ -81,7 +81,10 @@ export const postRecruitmentAPI = async ({
     });
 
     return response.data;
-  } catch (error) {
+  } catch (error: any) {
+    if (error.response.status === 403) {
+      return 403; // forbidden Ben 된 선생님
+    }
     return false;
   }
 };
