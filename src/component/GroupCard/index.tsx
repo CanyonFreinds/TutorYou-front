@@ -28,6 +28,10 @@ function GroupCard({ group, isTeacher, giveStars, reportTeacher, fireGroup }: Gr
     toggleModal();
   };
 
+  const meetingStart = () => {
+    window.alert('구현중입니다.');
+  };
+
   return (
     <Style.Container>
       <Modal open={open} onClose={toggleModal}>
@@ -61,6 +65,9 @@ function GroupCard({ group, isTeacher, giveStars, reportTeacher, fireGroup }: Gr
           </Style.ControlButton>
         </>
       )}
+      <Style.ControlButton variant="outlined" onClick={meetingStart}>
+        화상회의 시작
+      </Style.ControlButton>
     </Style.Container>
   );
 }
