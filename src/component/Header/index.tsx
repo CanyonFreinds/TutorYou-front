@@ -1,7 +1,7 @@
 import React, { useContext } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import * as Style from './styled';
-import { teaturesPath, recruitmentsPath, buildProfilePath, adminPath, loginPath } from '../../Routes';
+import { teaturesPath, recruitmentsPath, buildProfilePath, adminPath, loginPath, buildGroupPath } from '../../Routes';
 import { userStateContext } from '../../context/UserContext';
 
 function Header() {
@@ -28,13 +28,11 @@ function Header() {
         </Link>
       </Style.Navigator>
       <Style.IconContainer>
-        {state.role[0] === 'ROLE_ADMIN' && (
-          <Link to={adminPath}>
-            <Style.SupervisorAccountIcon />
-          </Link>
-        )}
         {state.userId !== 0 && (
           <>
+            <Link to={state.role[0] === 'ROLE_ADMIN' ? adminPath : buildGroupPath(state.userId)}>
+              <Style.SupervisorAccountIcon />
+            </Link>
             <Style.NotificationsIcon />
             <Link to={buildProfilePath(state.userId)}>
               <Style.AccountCircleIcon />
