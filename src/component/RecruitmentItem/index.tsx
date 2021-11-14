@@ -37,9 +37,6 @@ function RecruitmentItem({
   return (
     <Style.Container>
       <Style.LeftContainer>
-        <Style.Profile
-          alt="User profile"
-        />
         <Style.CenterContainer>
           <Style.CenterTopContainer>
             <Style.Category color="primary" size="small" label={categoryName} />

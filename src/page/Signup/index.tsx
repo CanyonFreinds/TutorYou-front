@@ -1,11 +1,9 @@
 /* eslint-disable object-shorthand */
 import React, { useState } from 'react';
 import Box from '@mui/material/Box';
-import FormControlLabel from '@mui/material/FormControlLabel';
 import Radio from '@mui/material/Radio';
 import RadioGroup from '@mui/material/RadioGroup';
 import FormControl from '@mui/material/FormControl';
-import Button from '@mui/material/Button';
 import signUp from '../../api/signupAPI';
 import CareerItem from '../../component/Signup';
 import checkEmail from '../../api/checkemail';
@@ -112,9 +110,9 @@ export default function Signup() {
         {value === 'ROLE_ADMIN' && <h1 style={{ fontSize: 'xx-large' }}>관리자 회원가입</h1>}
         <FormControl component="fieldset">
           <RadioGroup row defaultValue="ROLE_STUDENT" onChange={handleChange}>
-            <FormControlLabel value="ROLE_STUDENT" control={<Radio />} label="학생" />
-            <FormControlLabel value="ROLE_TEACHER" control={<Radio />} label="선생님" />
-            <FormControlLabel value="ROLE_ADMIN" control={<Radio />} label="관리자" />
+            <Style.MUIFormControlLabel value="ROLE_STUDENT" control={<Style.Radio />} label="학생" />
+            <Style.MUIFormControlLabel value="ROLE_TEACHER" control={<Style.Radio />} label="선생님" />
+            <Style.MUIFormControlLabel value="ROLE_ADMIN" control={<Style.Radio />} label="관리자" />
           </RadioGroup>
         </FormControl>
         <br />
@@ -131,8 +129,8 @@ export default function Signup() {
             <Style.Label htmlFor="email">이메일을 입력하세요.</Style.Label>
             <br />
             <Style.TextField
-              inputProps={{ style: { fontSize: '2rem' } }}
-              InputLabelProps={{ style: { fontSize: '1rem' } }}
+              inputProps={{ style: { fontSize: '2.5rem' } }}
+              InputLabelProps={{ style: { fontSize: '2rem' } }}
               id="email"
               name="email"
               label="email"
@@ -144,16 +142,16 @@ export default function Signup() {
             />
           </Style.Aligndiv>
           <br />
-          <Button id="emailBtn" onClick={checkEmailValidation}>
+          <Style.Button variant="contained" id="emailBtn" onClick={checkEmailValidation}>
             이메일 중복 검사
-          </Button>
+          </Style.Button>
           <br />
           <Style.Aligndiv>
             <Style.Label htmlFor="name">아이디를 입력하세요.</Style.Label>
             <br />
             <Style.TextField
-              inputProps={{ style: { fontSize: '2rem' } }}
-              InputLabelProps={{ style: { fontSize: '1rem' } }}
+              inputProps={{ style: { fontSize: '2.5rem' } }}
+              InputLabelProps={{ style: { fontSize: '2rem' } }}
               id="name"
               name="name"
               label="id"
@@ -170,8 +168,8 @@ export default function Signup() {
             <Style.Label htmlFor="password">비밀번호를 입력하세요.</Style.Label>
             <br />
             <Style.TextField
-              inputProps={{ style: { fontSize: '2rem' } }}
-              InputLabelProps={{ style: { fontSize: '1rem' } }}
+              inputProps={{ style: { fontSize: '2.5rem' } }}
+              InputLabelProps={{ style: { fontSize: '2rem' } }}
               id="password"
               name="password"
               label="password"
@@ -187,8 +185,8 @@ export default function Signup() {
             <Style.Label htmlFor="confirmpassword">비밀번호를 다시 입력해주세요</Style.Label>
             <br />
             <Style.TextField
-              inputProps={{ style: { fontSize: '2rem' } }}
-              InputLabelProps={{ style: { fontSize: '1rem' } }}
+              inputProps={{ style: { fontSize: '2.5rem' } }}
+              InputLabelProps={{ style: { fontSize: '2rem' } }}
               id="confirmpassword"
               name="password2"
               label="password"
@@ -208,9 +206,9 @@ export default function Signup() {
           <Style.CareerDiv>
             <FormControl component="fieldset">
               <RadioGroup row onChange={handleChangeCareer} defaultValue="EDUCATION_LEVEL">
-                <FormControlLabel value="EDUCATION_LEVEL" control={<Radio />} label="학력" />
-                <FormControlLabel value="PRIZE_EXP" control={<Radio />} label="수상경력" />
-                <FormControlLabel value="TUTOR_EXP" control={<Radio />} label="과외경력" />
+                <Style.MUIFormControlLabel value="EDUCATION_LEVEL" control={<Radio />} label="학력" />
+                <Style.MUIFormControlLabel value="PRIZE_EXP" control={<Radio />} label="수상경력" />
+                <Style.MUIFormControlLabel value="TUTOR_EXP" control={<Radio />} label="과외경력" />
               </RadioGroup>
             </FormControl>
             <br />

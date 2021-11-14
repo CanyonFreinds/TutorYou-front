@@ -35,7 +35,7 @@ export const SearchContainer = styled.div`
   align-items: center;
   width: 100%;
   height: 10rem;
-  column-gap: 5rem;
+  column-gap: 3rem;
   /* border: 0.1rem solid rgba(0, 0, 0, 0.1); */
   margin: 1rem 0;
 `;
