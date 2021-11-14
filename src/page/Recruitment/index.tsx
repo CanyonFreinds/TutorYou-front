@@ -51,8 +51,12 @@ function Recruitment() {
 
   const onClickJoinButton = async () => {
     if (!state.userId) {
-      showToast('로그인 후 참여해주세요');
+      showToast('로그인 후 참여해주세요.');
       history.push(loginPath);
+    }
+
+    if (isStudent) {
+      showToast('그룹에 참가가 되었습니다.');
     }
   }
   

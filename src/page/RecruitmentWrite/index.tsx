@@ -11,6 +11,7 @@ import MarkdownEditor from '../../component/MarkdownEditor';
 import { buildRecruitmentPath, recruitmentsPath } from '../../Routes';
 import { useRecruitmentPostContext } from '../../context/RecruitmentPostContext';
 import { userStateContext } from '../../context/UserContext';
+import { showToast } from '../../component/Toast';
 
 registerLocale('ko', ko);
 
@@ -118,7 +119,10 @@ function RecruitmentWrite() {
       response = await postRecruitmentAPI(sumbitObject);
     }
     
-    if (response) {
+    if (response === 403) {
+      showToast('글쓰기가 금지되었습니다.');
+      history.replace(recruitmentsPath);
+    } else if (response) {
       setCurrentPost(response);
       history.replace(buildRecruitmentPath(response.postId));
     }
