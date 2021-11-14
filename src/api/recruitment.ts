@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-axios.defaults.baseURL = 'http://13.209.190.73:8080';
+axios.defaults.baseURL = 'http://3.36.81.52:8080';
 
 // ref: https://stackoverflow.com/questions/37978528/typescript-type-string-is-not-assignable-to-type
 export type PostType = '1:1' | '1:M';
