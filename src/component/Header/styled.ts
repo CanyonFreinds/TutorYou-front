@@ -4,6 +4,7 @@ import MaterialAccountCircleIcon from '@mui/icons-material/AccountCircle';
 import MaterialNotificationsIcon from '@mui/icons-material/Notifications';
 import MaterialLogoutIcon from '@mui/icons-material/Logout';
 import MaterialSupervisorAccountIcon from '@mui/icons-material/SupervisorAccount';
+import ChatIcon from '@mui/icons-material/Chat';
 
 interface LinkProps {
   isPath: boolean;
@@ -68,6 +69,12 @@ export const NotificationsIcon = styled(MaterialNotificationsIcon)`
 `;
 
 export const SupervisorAccountIcon = styled(MaterialSupervisorAccountIcon)`
+  margin: 0 0.7rem;
+  font-size: 3.5rem;
+  cursor: pointer;
+`;
+
+export const MaterialChatIcon = styled(ChatIcon)`
   margin: 0 0.7rem;
   font-size: 3.5rem;
   cursor: pointer;
