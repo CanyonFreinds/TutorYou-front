@@ -84,6 +84,16 @@ export const PeopleCount = styled.div`
   font-size: 1.5rem;
 `;
 
+export const FullPeopleCount = styled.div`
+  text-align: center;
+  width: 4rem;
+  height: 2rem;
+  background-color: #ff6f61;
+  border-radius: 1rem;
+  color: white;
+  font-size: 1.5rem;
+`;
+
 export const StartDate = styled.p`
   font-size: 1.5rem;
   margin: 0;

@@ -93,10 +93,17 @@ function Recruitment() {
       <Style.MidContainer>
         <Style.TextChip color="primary" label={currentPost.categoryName} />
         <Style.TextChip color="primary" label={currentPost.postType} />
-        <Style.TextChip
-          color="primary"
-          label={`${currentPost.totalStudentCount}명중 ${currentPost.applicantCount}명이 참여하고 있습니다.`}
-        />
+        {currentPost.totalStudentCount === currentPost.applicantCount ? (
+          <Style.TextChip
+            color="primary"
+            label={`${currentPost.totalStudentCount}명중 ${currentPost.applicantCount}명 모든 인원이 참가하였습니다.`}
+          />
+        ): (
+          <Style.TextChip
+            color="secondary"
+            label={`${currentPost.totalStudentCount}명중 ${currentPost.applicantCount}명이 참여하고 있습니다.`}
+          />
+        )}
       </Style.MidContainer>
       <Style.BottomContainer>
         <Style.Date>

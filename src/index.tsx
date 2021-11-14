@@ -4,6 +4,7 @@ import { BrowserRouter } from 'react-router-dom';
 import { ThemeProvider } from '@mui/material';
 
 import RecruitmentPostProvider from './context/RecruitmentPostContext';
+import GroupProvider from './context/GroupContext';
 import UserProvider from './context/UserContext';
 import GlobalStyle from './style/GlobalStyle';
 import ToastContainer from './component/Toast';
@@ -14,11 +15,13 @@ ReactDOM.render(
   <ThemeProvider theme={theme}>
     <BrowserRouter>
       <UserProvider>
-        <RecruitmentPostProvider>
-          <GlobalStyle />
-          <ToastContainer />
-          <App />
-        </RecruitmentPostProvider>
+        <GroupProvider>
+          <RecruitmentPostProvider>
+            <GlobalStyle />
+            <ToastContainer />
+            <App />
+          </RecruitmentPostProvider>
+        </GroupProvider>
       </UserProvider>
     </BrowserRouter>
   </ThemeProvider>,
