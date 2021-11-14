@@ -20,17 +20,25 @@ function Teachers() {
     }
   }, []);
 
-  const getTeachers = async () => {
+  const getTeachers = async (overide: boolean) => {
     const result = await getTeachersAPI({ query, pageNumber, order, sort });
+    const currentProfiles = overide ? profiles : [];
     if (result) {
-      setProfiles([...profiles, ...result.results]);
+      setProfiles([...currentProfiles, ...result.results]);
     }
   };
 
   const clickNavItem = (sort: SortType, order: OrderType) => {
     setPageNumber(0);
+    setProfiles([]);
     setSort(sort);
     setOrder(order);
+  };
+
+  const handleSearch = () => {
+    setProfiles([]);
+    setPageNumber(0);
+    getTeachers(false);
   };
 
   useEffect(() => {
@@ -44,7 +52,7 @@ function Teachers() {
   }, [handleObserver]);
 
   useEffect(() => {
-    getTeachers();
+    getTeachers(true);
   }, [pageNumber, sort, order]);
 
   return (
@@ -76,7 +84,7 @@ function Teachers() {
             value={query}
             onChange={(event) => setQuery(event.target.value)}
           />
-          <Style.SearchButton variant="contained" onClick={getTeachers}>
+          <Style.SearchButton variant="contained" onClick={handleSearch}>
             검색
           </Style.SearchButton>
         </Style.SearchBox>
