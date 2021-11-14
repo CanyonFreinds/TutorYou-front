@@ -1,5 +1,5 @@
 /* eslint-disable react/jsx-props-no-spreading */
-import React, { useState, ChangeEvent, useEffect } from 'react';
+import React, { useState, ChangeEvent, useEffect, useContext } from 'react';
 import DatePicker, { registerLocale }  from "react-datepicker";
 import { useHistory, useLocation } from "react-router-dom";
 import moment from 'moment';
@@ -10,6 +10,7 @@ import { postRecruitmentAPI, putRecruitmentAPI } from '../../api/recruitment';
 import MarkdownEditor from '../../component/MarkdownEditor';
 import { buildRecruitmentPath } from '../../Routes';
 import { useRecruitmentPostContext } from '../../context/RecruitmentPostContext';
+import { userStateContext } from '../../context/UserContext';
 
 registerLocale('ko', ko);
 
@@ -29,11 +30,22 @@ function RecruitmentWrite() {
   const [totalStudentCount, setTotalStudentCount] = useState<number>(1);
   const [content, setContent] = useState<string>('');
   const { setCurrentPost, currentPost }: any = useRecruitmentPostContext();
+  const { state } = useContext(userStateContext);
   const history = useHistory();
   const location = useLocation<LocationProps>();
 
   useEffect(() => {
-    if (!location.state) return;
+    if (!location.state) {
+      setTitle('');
+      setStartDate(moment().toDate());
+      setEndDate(moment().toDate());
+      setCategoryName('국어');
+      setPostType('ONE_TO_ONE');
+      setTotalStudentCount(1);
+      setContent('');
+      return;
+    }
+
     setTitle(currentPost.title);
     setStartDate(moment(currentPost.startDate).toDate());
     setEndDate(moment(currentPost.endDate).toDate());
@@ -88,7 +100,7 @@ function RecruitmentWrite() {
       startDate: moment(startDate).format(DATE_FORMAT),
       title,
       totalStudentCount,
-      userId: 1, // Todo: userId
+      userId: state.userId,
     }
 
     console.log('sumbitObject', sumbitObject);

@@ -78,7 +78,6 @@ function Recruitment() {
           <Style.DateComment>
             에서
           </Style.DateComment>
-          -
           {currentPost.endDate}
           <Style.DateComment>
             까지
