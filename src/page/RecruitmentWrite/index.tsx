@@ -1,12 +1,15 @@
 /* eslint-disable react/jsx-props-no-spreading */
 import React, { useState, ChangeEvent, useEffect } from 'react';
 import DatePicker, { registerLocale }  from "react-datepicker";
+import { useHistory } from "react-router-dom";
 import moment from 'moment';
 import ko from 'date-fns/locale/ko';
 
 import * as Style from './styled';
 import { postRecruitmentAPI } from '../../api/recruitment';
 import MarkdownEditor from '../../component/MarkdownEditor';
+import { buildRecruitmentPath } from '../../Routes';
+import { useRecruitmentPostContext } from '../../context/RecruitmentPostContext';
 
 registerLocale('ko', ko);
 
@@ -34,6 +37,8 @@ const DATE_FORMAT = 'yyyy-MM-DD';
 
 function RecruitmentWrite() {
   const [values, setValues] = useState<InitialValue>(initialValues);
+  const { setCurrentPost }: any = useRecruitmentPostContext();
+  const history = useHistory();
 
   useEffect(() => {
     if (values.postType === '1:1') setValues({ ...values, totalStudentCount: 1 });
@@ -92,7 +97,11 @@ function RecruitmentWrite() {
 
     console.log('sumbitObject', sumbitObject);
     const response = await postRecruitmentAPI(sumbitObject);
-    console.log(response);
+    
+    if (response) {
+      setCurrentPost(response);
+      history.replace(buildRecruitmentPath(response.postId));
+    }
   };
 
   return (
