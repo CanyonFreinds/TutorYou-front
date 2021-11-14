@@ -169,7 +169,6 @@ function RecruitmentWrite() {
               <Style.SelectMenuItem value="국어">국어</Style.SelectMenuItem>
               <Style.SelectMenuItem value="수학">수학</Style.SelectMenuItem>
               <Style.SelectMenuItem value="영어">영어</Style.SelectMenuItem>
-              <Style.SelectMenuItem value="사회">사회</Style.SelectMenuItem>
               <Style.SelectMenuItem value="화학">화학</Style.SelectMenuItem>
               <Style.SelectMenuItem value="지구과학">지구과학</Style.SelectMenuItem>
               <Style.SelectMenuItem value="물리">물리</Style.SelectMenuItem>

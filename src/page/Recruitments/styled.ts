@@ -1,4 +1,9 @@
 import styled from '@emotion/styled';
+import TextField from '@mui/material/TextField';
+import Select from '@mui/material/Select';
+import MenuItem from '@mui/material/MenuItem';
+import InputLabel from '@mui/material/InputLabel';
+import Button from '@mui/material/Button';
 
 export const Container = styled.div`
   display: flex;
@@ -29,7 +34,36 @@ export const SearchContainer = styled.div`
   justify-content: center;
   align-items: center;
   width: 100%;
-  height: 8rem;
-  border: 0.1rem solid rgba(0, 0, 0, 0.1);
+  height: 10rem;
+  column-gap: 5rem;
+  /* border: 0.1rem solid rgba(0, 0, 0, 0.1); */
   margin: 1rem 0;
+`;
+
+export const SearchInput = styled(TextField)`
+
+`;
+
+export const SelectWholeContainer = styled.div`
+  width: 18rem;
+`;
+
+export const SelectContainer = styled(Select)`
+  font-size: 1.8rem;
+  width: 100%;
+`;
+
+export const SelectMenuItem = styled(MenuItem)`
+  font-size: 1.5rem;
+`;
+
+export const SelectLabel = styled(InputLabel)`
+  font-size: 1.5rem;
+`;
+
+export const SearchButton = styled(Button)`
+  font-size: 1.5rem;
+  color: white;
+  width: 14rem;
+  height: 6rem;
 `;
