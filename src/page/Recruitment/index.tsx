@@ -1,14 +1,15 @@
 import React, { useEffect } from 'react';
-import { useParams } from 'react-router-dom';
+import { useParams, useHistory } from 'react-router-dom';
 import moment from 'moment';
 
 import { useRecruitmentPostContext } from '../../context/RecruitmentPostContext';
 import MarkdownViewer from '../../component/MarkdownViewer';
 import RecruitmentDeleteButton from '../../component/RecruitmentDeleteButton';
 import RecruitmentEditButton from '../../component/RecruitmentEditButton';
-import { getRecruitmentAPI } from '../../api/recruitment';
+import { getRecruitmentAPI, deleteRecruitmentAPI } from '../../api/recruitment';
 import * as Style from './styled';
 import { MOMENT_FORMAT } from '../../constants';
+import { recruitmentsPath } from '../../Routes';
 
 interface Params {
   postId: string;
@@ -17,6 +18,7 @@ interface Params {
 function Recruitment() {
   const { postId } = useParams<Params>();
   const { setCurrentPost, currentPost }: any = useRecruitmentPostContext();
+  const history = useHistory();
 
   useEffect(() => { 
     (async () => {
@@ -27,6 +29,16 @@ function Recruitment() {
     })();
   }, []);
 
+  const onClickDeleteButton = async () => {
+    const response = await deleteRecruitmentAPI({ postId: Number(postId) });
+    console.log('delete response', response);
+    history.replace(recruitmentsPath);
+  }
+
+  const onClickEditButton = async () => {
+    console.log('Edit response');
+  }
+  
   return (
     <Style.Container>
       <Style.Title>
@@ -73,8 +85,8 @@ function Recruitment() {
       <Style.MarkdownContainer>
         <MarkdownViewer content={currentPost.content} />
       </Style.MarkdownContainer>
-      <RecruitmentDeleteButton />
-      <RecruitmentEditButton />
+      <RecruitmentDeleteButton onClick={onClickDeleteButton} />
+      <RecruitmentEditButton onClick={onClickEditButton} />
     </Style.Container>
   );
 }

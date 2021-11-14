@@ -1,7 +1,11 @@
 import React, { useState } from 'react';
 import * as Style from './styled';
 
-function RecruitmentDeleteButton() {
+interface RecruitmentDeleteButtonProps {
+  onClick: () => Promise<void>;
+}
+
+function RecruitmentDeleteButton({ onClick }: RecruitmentDeleteButtonProps) {
   const [open, setOpen] = useState(false);
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
@@ -23,7 +27,7 @@ function RecruitmentDeleteButton() {
             정말로 삭제하시겠습니까?
           </Style.Text>
           <Style.ButtonContainer>
-            <Style.DeleteButton variant="contained" color="primary">삭제</Style.DeleteButton>
+            <Style.DeleteButton onClick={onClick} variant="contained" color="primary">삭제</Style.DeleteButton>
             <Style.MUIButton onClick={handleClose} variant="contained" color="inherit">취소</Style.MUIButton>
           </Style.ButtonContainer>
         </Style.MUIBox>

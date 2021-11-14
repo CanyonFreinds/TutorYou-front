@@ -1,7 +1,11 @@
 import React, { useState } from 'react';
 import * as Style from './styled';
 
-function RecruitmentEditButton() {
+interface RecruitmentEditButtonProps {
+  onClick: () => Promise<void>;
+}
+
+function RecruitmentEditButton({ onClick }: RecruitmentEditButtonProps) {
   const [open, setOpen] = useState(false);
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
@@ -23,7 +27,7 @@ function RecruitmentEditButton() {
             수정하시겠습니까?
           </Style.Text>
           <Style.ButtonContainer>
-            <Style.MUIButton variant="contained" color="info">수정</Style.MUIButton>
+            <Style.MUIButton onClick={onClick} variant="contained" color="info">수정</Style.MUIButton>
             <Style.MUIButton onClick={handleClose} variant="contained" color="inherit">취소</Style.MUIButton>
           </Style.ButtonContainer>
         </Style.MUIBox>
