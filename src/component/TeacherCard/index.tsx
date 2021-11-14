@@ -4,7 +4,7 @@ import { ProfileType } from '../../api/user';
 
 interface TeacherCardProps {
   profile: ProfileType;
-  startChatting: () => void;
+  startChatting: (id: number) => void;
 }
 
 function TeacherCard({ profile, startChatting }: TeacherCardProps) {
@@ -21,7 +21,7 @@ function TeacherCard({ profile, startChatting }: TeacherCardProps) {
           <Style.StarIcon />
           {profile.point}
         </Style.StarWrapper>
-        <Style.ChatButton variant="contained" onClick={startChatting}>
+        <Style.ChatButton variant="contained" onClick={() => startChatting(profile.id)}>
           채팅
         </Style.ChatButton>
         <Style.InfoList>

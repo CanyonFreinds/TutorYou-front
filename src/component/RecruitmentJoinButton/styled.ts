@@ -9,7 +9,7 @@ import Button from '@mui/material/Button';
 
 export const Container = styled(Fab)`
   position: fixed;
-  right: 0;
+  right: 14rem;
   bottom: 0;
   margin: 3rem;
 `;

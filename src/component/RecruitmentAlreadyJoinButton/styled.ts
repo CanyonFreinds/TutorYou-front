@@ -5,7 +5,7 @@ import Tooltip from '@mui/material/Tooltip';
 
 export const Container = styled(Fab)`
   position: fixed;
-  right: 0;
+  right: 14rem;
   bottom: 0;
   margin: 3rem;
   background-color: #68D391;

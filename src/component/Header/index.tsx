@@ -64,11 +64,15 @@ function Header() {
             </Link>
           </Tooltip>
         )}
-        <Tooltip title="채팅">
-          <Link to={chatPath}>
-            <Style.MaterialChatIcon />
-          </Link>
-        </Tooltip>
+        {state.userId ? (
+          <Tooltip title="채팅">
+            <Link to={chatPath}>
+              <Style.MaterialChatIcon />
+            </Link>
+          </Tooltip>
+        ) : (
+          <></>
+        )}
       </Style.IconContainer>
     </Style.Container>
   );

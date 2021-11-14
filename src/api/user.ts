@@ -82,6 +82,7 @@ export const getTeachersAPI = async ({ order = 'asc', pageNumber, query = '', so
 
     return response.data as GetTeachersAPIResponse;
   } catch (error) {
+    window.alert('error');
     return false;
   }
 };
@@ -94,6 +95,7 @@ export const getProfileAPI = async ({ userId }: GetProfileAPIRequest) => {
     });
     return response.data as ProfilePageType;
   } catch (error) {
+    window.alert('error');
     return false;
   }
 };
@@ -107,6 +109,7 @@ export const updateUserImageAPI = async ({ formData, userId }: UpdateUserImageAP
     });
     return response.data;
   } catch (error) {
+    window.alert('error');
     return false;
   }
 };
@@ -124,6 +127,7 @@ export const changePasswordAPI = async ({ userId, beforePassword, afterPassword 
 
     return response.data;
   } catch (error) {
+    window.alert('error');
     return false;
   }
 };
@@ -137,6 +141,7 @@ export const deleteUserAPI = async ({ userId }: DeleteUserAPIRequest) => {
 
     return response.data;
   } catch (error) {
+    window.alert('error');
     return false;
   }
 };
@@ -155,7 +160,7 @@ export const changeTeacherPoint = async ({ groupId, point, studentId, teacherId 
     alert('제출완료');
     return response.data;
   } catch (error) {
-    alert('error');
+    window.alert('error');
     return false;
   }
 };
@@ -174,7 +179,7 @@ export const reportTeacherAPI = async ({ groupId, studentId, teacherId }: Report
     alert('신고완료');
     return response.data;
   } catch (error) {
-    alert('error');
+    window.alert('error');
     return false;
   }
 };
