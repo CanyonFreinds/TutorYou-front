@@ -1,7 +1,9 @@
-import React, { useState, useEffect, useRef, useCallback } from 'react';
+import React, { useState, useEffect, useRef, useCallback, useContext } from 'react';
 import * as Style from './styled';
 import TeacherCard from '../../component/TeacherCard';
 import { getTeachersAPI, OrderType, SortType, ProfileType } from '../../api/user';
+import { createChatRoom } from '../../api/chat';
+import { userStateContext } from '../../context/UserContext';
 
 function Teachers() {
   const [pageNumber, setPageNumber] = useState(0);
@@ -9,9 +11,20 @@ function Teachers() {
   const [order, setOrder] = useState<OrderType>('asc');
   const [sort, setSort] = useState<SortType>('');
   const [profiles, setProfiles] = useState<ProfileType[]>([]);
+  const { state } = useContext(userStateContext);
+
   const loader = useRef(null);
 
-  const startChatting = () => {};
+  const startChatting = async (id: number) => {
+    if (id === state.userId) {
+      window.alert('자신과의 대화는 불가능합니다');
+      return;
+    }
+    const result = await createChatRoom({ studentId: state.userId, teacherId: id });
+    if (result !== false) {
+      window.alert('채팅방이 생성되었습니다');
+    }
+  };
 
   const handleObserver = useCallback((entries) => {
     const target = entries[0];

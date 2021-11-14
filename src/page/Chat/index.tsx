@@ -25,7 +25,8 @@ export default function chat() {
     setChat('');
   };
 
-  const onClickChattingRoom = (event: any) => {
+  const onClickChattingRoom = () => {
+    // 대화내용가져오기
     setShow(true);
   };
 
