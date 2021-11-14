@@ -7,10 +7,12 @@ interface StateType {
   name: string;
   role: RoleType[];
   userId: number;
+  studentGroups: number[];
+  teacherGroups: number[];
 }
 
 interface DispatchType {
-  type: 'login' | 'logout';
+  type: 'login' | 'logout' | 'getStudentGroups' | 'getTeacherGroups';
   payload?: StateType;
 }
 
@@ -25,6 +27,8 @@ const initialState: StateType = {
   name: '',
   role: [],
   userId: 0,
+  studentGroups: [],
+  teacherGroups: [],
 };
 
 const userReducer = (state: StateType, action: DispatchType): StateType => {
@@ -37,6 +41,30 @@ const userReducer = (state: StateType, action: DispatchType): StateType => {
         name: action.payload.name,
         role: action.payload.role,
         userId: action.payload.userId,
+        studentGroups: [],
+        teacherGroups: [],
+      };
+    case 'getStudentGroups':
+      if (!action.payload) return { ...initialState };
+      return {
+        accessToken: state.accessToken,
+        email: state.email,
+        name: state.name,
+        role: state.role,
+        userId: state.userId,
+        studentGroups: action.payload.studentGroups,
+        teacherGroups: state.teacherGroups,
+      };
+    case 'getTeacherGroups':
+      if (!action.payload) return { ...initialState };
+      return {
+        accessToken: state.accessToken,
+        email: state.email,
+        name: state.name,
+        role: state.role,
+        userId: state.userId,
+        studentGroups: state.studentGroups,
+        teacherGroups: action.payload.teacherGroups,
       };
     case 'logout':
       return {
