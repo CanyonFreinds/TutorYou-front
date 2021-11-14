@@ -10,7 +10,7 @@ interface CareerFormType {
 
 export function signUp(email: string, name: string, password: string, role: string, careers: CareerFormType[]) {
   axios
-    .post('http://13.209.190.73:8080/api/v1/signup', {
+    .post('/api/v1/signup', {
       email: email,
       name: name,
       password: password,

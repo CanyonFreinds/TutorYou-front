@@ -1,5 +1,5 @@
 import React, { useState, useContext } from 'react';
-
+import { useHistory } from 'react-router-dom';
 import Box from '@mui/material/Box';
 import GoogleIcon from '@mui/icons-material/Google';
 import GitHubIcon from '@mui/icons-material/GitHub';
@@ -8,6 +8,7 @@ import { loginAPI } from '../../api/loginAPI';
 import { userStateContext } from '../../context/UserContext';
 
 function Login() {
+  const history = useHistory();
   const [email, setEmail] = useState('');
   const [pwd, setPwd] = useState('');
   const { dispatch } = useContext(userStateContext);
@@ -18,6 +19,7 @@ function Login() {
       const result = await loginAPI({ email, password: pwd });
       if (result && dispatch) {
         dispatch({ type: 'login', payload: result });
+        history.push('/');
       }
     }
   };

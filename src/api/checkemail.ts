@@ -2,7 +2,7 @@ import axios from 'axios';
 
 export function checkEmail(email: string) {
   axios
-    .get('http://13.209.190.73:8080/api/v1/users/validation', {
+    .get('/api/v1/users/validation', {
       params: {
         email: email,
       },

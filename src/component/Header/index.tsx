@@ -33,10 +33,14 @@ function Header() {
             <Style.SupervisorAccountIcon />
           </Link>
         )}
-        <Style.NotificationsIcon />
-        <Link to={buildProfilePath(state.userId)}>
-          <Style.AccountCircleIcon />
-        </Link>
+        {state.userId !== 0 && (
+          <>
+            <Style.NotificationsIcon />
+            <Link to={buildProfilePath(state.userId)}>
+              <Style.AccountCircleIcon />
+            </Link>
+          </>
+        )}
         {state.userId ? (
           <Style.LogoutIcon onClick={handleLogout} />
         ) : (
