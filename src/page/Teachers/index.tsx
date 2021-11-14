@@ -16,8 +16,8 @@ function Teachers() {
   const loader = useRef(null);
 
   const startChatting = async (id: number) => {
-    if (id === state.userId) {
-      window.alert('자신과의 대화는 불가능합니다');
+    if (state.role[0] !== 'ROLE_STUDENT') {
+      window.alert('대화신청은 학생만 가능합니다');
       return;
     }
     const result = await createChatRoom({ studentId: state.userId, teacherId: id });

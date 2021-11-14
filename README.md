@@ -16,12 +16,14 @@
 </p>
 
 ### 참가자
-| [서승훈](https://github.com/qkrdmstlr3)| [박은식](https://github.com/gitgitWi)| [유창헌](https://github.com/yyjjjj)| [정현수](https://github.com/Eunsol0410)|
-| -------------------------------------------------- | ------------------------------------------------------------------------------------------------------------- | ---------------------------------------------- | -------------------------------------------------- |
-|  <img src="https://avatars.githubusercontent.com/u/55012742?v=4" width="150px" /> | <img src="https://avatars.githubusercontent.com/u/26402298?v=4" width="150px" /> | <img src="https://avatars.githubusercontent.com/u/49175629?v=4"  width="150px" /> |  <img src="https://avatars.githubusercontent.com/u/54893898?v=4" width="150px" />  | 
-|backend|frontend|frontend|frontend|
+
+| [서승훈](https://github.com/qkrdmstlr3)                                          | [박은식](https://github.com/gitgitWi)                                            | [유창헌](https://github.com/yyjjjj)                                               | [정현수](https://github.com/Eunsol0410)                                          |
+| -------------------------------------------------------------------------------- | -------------------------------------------------------------------------------- | --------------------------------------------------------------------------------- | -------------------------------------------------------------------------------- |
+| <img src="https://avatars.githubusercontent.com/u/55012742?v=4" width="150px" /> | <img src="https://avatars.githubusercontent.com/u/26402298?v=4" width="150px" /> | <img src="https://avatars.githubusercontent.com/u/49175629?v=4"  width="150px" /> | <img src="https://avatars.githubusercontent.com/u/54893898?v=4" width="150px" /> |
+| backend                                                                          | frontend                                                                         | frontend                                                                          | frontend                                                                         |
 
 ### Architecture
+
 <img width="500" alt="스크린샷 2021-11-14 오후 5 56 09" src="https://user-images.githubusercontent.com/26402298/141674372-20af1630-2e44-416b-b853-56ec92d37082.png">
 
 ### 구현 기능
@@ -29,6 +31,8 @@
 - 가입 페이지 (login / 회원가입 / 로그아웃)
 - 과외 찾기 페이지 (과외 목록 조회 / 과외 글 쓰기 / 과외 글 수정 / 과외 글 삭제)
 - 선생님 목록 페이지 (선생님 목록 조회 / 채팅기능(구현 중))
-- 관리자 페이지 ()
-- 프로필 페이지 ()
-- 그룹 페이지 ()
+- 관리자 페이지 (블랙리스트 등록/해제)
+- 프로필 페이지 (경력 추가/ 프로필이미지 변경 / 비밀번호 변경 / 회원탈퇴)
+- 그룹 페이지 (별점 주기 / 신고하기)
+- 채팅 페이지 (실시간 채팅기능)
+- 헤더 (알림)

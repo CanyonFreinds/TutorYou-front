@@ -6,14 +6,15 @@ import ListItemAvatar from '@mui/material/ListItemAvatar';
 import Avatar from '@mui/material/Avatar';
 
 import * as Style from './styled';
+import { ChatProps } from '../../api/chat';
 
-interface ChatProps {
-  chat: string;
+interface ChatBalloonProps {
+  chat: ChatProps;
   name: string;
   image: string;
 }
 
-export default function ChatBalloon({ chat, name, image }: ChatProps) {
+export default function ChatBalloon({ chat, name, image }: ChatBalloonProps) {
   return (
     <Style.BalloonDiv>
       <ListItem alignItems="flex-start">
@@ -25,7 +26,7 @@ export default function ChatBalloon({ chat, name, image }: ChatProps) {
           secondary={
             <>
               <br />
-              {chat}
+              {chat.message}
             </>
           }
         />
