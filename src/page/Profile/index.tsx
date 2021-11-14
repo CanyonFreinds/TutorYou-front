@@ -1,28 +1,52 @@
-import React, { useState, useContext } from 'react';
-import { useHistory } from 'react-router-dom';
+import React, { useState, useContext, useEffect } from 'react';
+import { useHistory, useParams } from 'react-router-dom';
 import Modal from '@mui/material/Modal';
 import * as Style from './styled';
 import CareerItem from '../../component/CareerItem';
 import ProfileImage from '../../component/ProfileImage';
 import { addUserCareerAPI, deleteUserCareerapi } from '../../api/career';
-import { updateUserImageAPI, changePasswordAPI, deleteUserAPI, ProfileType } from '../../api/user';
+import { updateUserImageAPI, changePasswordAPI, deleteUserAPI, getProfileAPI, ProfilePageType } from '../../api/user';
 import { userStateContext } from '../../context/UserContext';
+
+interface ParamProps {
+  id: string;
+}
 
 function Profile() {
   const history = useHistory();
+  const { id } = useParams<ParamProps>();
   const [open, setOpen] = useState(false);
   const [beforePassword, setBeforePassword] = useState('');
   const [afterPassword, setAfterPassword] = useState('');
-  const { state } = useContext(userStateContext);
-  const [info, setInfo] = useState<ProfileType>({
-    id: 1,
-    name: 'string',
-    point: 1.2,
-    studentCount: 12,
-    imageSrc: 'string',
-    role: [],
-    careers: [],
-  });
+  const { state, dispatch } = useContext(userStateContext);
+  const [info, setInfo] = useState<ProfilePageType | undefined>(undefined);
+
+  const getRoleText = () => {
+    switch (state.role[0]) {
+      case 'ROLE_ADMIN':
+        return '관리자';
+      case 'ROLE_STUDENT':
+        return '학생';
+      case 'ROLE_TEACHER':
+        return '선생님';
+      default:
+        return '에러';
+    }
+  };
+
+  const getProfile = async () => {
+    const result = await getProfileAPI({ userId: state.userId });
+    if (result) {
+      setInfo({
+        role: result.role,
+        name: result.name,
+        imageSrc: result.imageSrc,
+        id: result.id,
+        email: result.email,
+        careers: result.careers,
+      });
+    }
+  };
 
   const toggleModal = () => {
     setOpen(!open);
@@ -30,15 +54,15 @@ function Profile() {
 
   const changeImage = async (formData: FormData) => {
     const result = await updateUserImageAPI({ formData, userId: state.userId });
-    if (result) {
+    if (result && info) {
       setInfo({ ...info, imageSrc: result });
     }
   };
 
   const addSchoolCareer = async (value: string) => {
-    if (value.length < 5) return;
+    if (value.length < 1) return;
     const result = await addUserCareerAPI({ userId: state.userId, careerType: 'EDUCATION_LEVEL', content: value });
-    if (result) {
+    if (result && info) {
       setInfo({
         ...info,
         careers: [...info.careers, { careerId: result.careerId, content: value, careerType: 'EDUCATION_LEVEL' }],
@@ -47,9 +71,9 @@ function Profile() {
   };
 
   const addAwardCareer = async (value: string) => {
-    if (value.length < 5) return;
+    if (value.length < 1) return;
     const result = await addUserCareerAPI({ userId: state.userId, careerType: 'PRIZE_EXP', content: value });
-    if (result) {
+    if (result && info) {
       setInfo({
         ...info,
         careers: [...info.careers, { careerId: result.careerId, content: value, careerType: 'PRIZE_EXP' }],
@@ -58,9 +82,9 @@ function Profile() {
   };
 
   const addTutorCareer = async (value: string) => {
-    if (value.length < 5) return;
+    if (value.length < 1) return;
     const result = await addUserCareerAPI({ userId: state.userId, careerType: 'TUTOR_EXP', content: value });
-    if (result) {
+    if (result && info) {
       setInfo({
         ...info,
         careers: [...info.careers, { careerId: result.careerId, content: value, careerType: 'TUTOR_EXP' }],
@@ -69,24 +93,35 @@ function Profile() {
   };
 
   const deleteCareer = async (id: number) => {
-    const filteredCareer = info.careers.filter((career) => career.careerId !== id);
-    const result = await deleteUserCareerapi({ userId: state.userId, careerId: '' });
-    if (result) {
+    const result = await deleteUserCareerapi({ userId: state.userId, careerId: id });
+    if (result !== false && info) {
+      const filteredCareer = info.careers.filter((career) => career.careerId !== id);
       setInfo({ ...info, careers: filteredCareer });
     }
   };
 
   const removeUser = async () => {
+    const cfm = window.confirm('정말 삭제하시겠습니까?');
+    if (!cfm) return;
     const result = await deleteUserAPI({ userId: state.userId });
-    if (result) {
+    if (result !== false && dispatch) {
+      dispatch({ type: 'logout' });
       history.push('/');
     }
   };
 
   const changePassword = async () => {
     await changePasswordAPI({ userId: state.userId, beforePassword, afterPassword });
+    toggleModal();
   };
 
+  useEffect(() => {
+    if (Number(id) === state.userId) {
+      getProfile();
+    }
+  }, [id]);
+
+  if (!info) return <Style.Error>로그인이 필요합니다</Style.Error>;
   return (
     <Style.Container>
       <Modal open={open} onClose={toggleModal}>
@@ -107,7 +142,7 @@ function Profile() {
       <Style.Header>
         <ProfileImage imageSrc={info.imageSrc} changeImage={changeImage} />
         <Style.Nickname>{info.name}</Style.Nickname>
-        선생님 안녕하세요. 👋
+        {getRoleText()} 안녕하세요. 👋
       </Style.Header>
       <Style.ButtonWrapper>
         <Style.ModifyButton variant="outlined" onClick={toggleModal}>
@@ -117,7 +152,7 @@ function Profile() {
           회원 탈퇴
         </Style.ModifyButton>
       </Style.ButtonWrapper>
-      {info.role[0] === 'ROLE_TEACHER' && (
+      {info.role === 'ROLE_TEACHER' ? (
         <Style.CareerList>
           <Style.CareerItem>
             <CareerItem
@@ -144,6 +179,8 @@ function Profile() {
             />
           </Style.CareerItem>
         </Style.CareerList>
+      ) : (
+        <>hello</>
       )}
     </Style.Container>
   );

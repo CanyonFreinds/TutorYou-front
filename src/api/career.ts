@@ -16,7 +16,7 @@ interface AddUserCareerAPIRequest {
 
 interface DeleteUserCareerAPIRequest {
   userId: number;
-  careerId: string;
+  careerId: number;
 }
 
 export const addUserCareerAPI = async ({ userId, careerType, content }: AddUserCareerAPIRequest) => {

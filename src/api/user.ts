@@ -16,11 +16,24 @@ export interface ProfileType {
   careers: CareerType[];
 }
 
+export interface ProfilePageType {
+  role: RoleType;
+  name: string;
+  imageSrc: string;
+  id: number;
+  email: string;
+  careers: CareerType[];
+}
+
 interface GetTeachersAPIResponse {
   pageNumber: number;
   pageSize: number;
   total: number;
   results: ProfileType[];
+}
+
+interface GetProfileAPIRequest {
+  userId: number;
 }
 
 interface GetTeachersAPI {
@@ -73,20 +86,31 @@ export const getTeachersAPI = async ({ order = 'asc', pageNumber, query = '', so
   }
 };
 
-export const updateUserImageAPI = async ({ formData, userId }: UpdateUserImageAPIRequest) => {
+export const getProfileAPI = async ({ userId }: GetProfileAPIRequest) => {
   try {
     const response = await axios({
-      method: 'PUT',
-      url: `/api/v1/users/${userId}/image`,
-      data: {
-        formData,
-      },
-      headers: {
-        'Content-Type': 'multipart/form-data',
-      },
+      method: 'GET',
+      url: `/api/v1/users/${userId}`,
     });
+    return response.data as ProfilePageType;
+  } catch (error) {
+    return false;
+  }
+};
 
-    return response.data;
+export const updateUserImageAPI = async ({ formData, userId }: UpdateUserImageAPIRequest) => {
+  try {
+    axios
+      .put(`/api/v1/users/${userId}/image`, formData, {
+        headers: {
+          'Content-Type': 'multipart/form-data',
+        },
+      })
+      .then((res) => {
+        return res.data;
+      })
+      .catch((errors) => console.log(errors));
+    return '';
   } catch (error) {
     return false;
   }
