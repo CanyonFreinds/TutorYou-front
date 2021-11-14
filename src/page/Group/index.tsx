@@ -30,6 +30,7 @@ function Group() {
     getGroups();
   }, []);
 
+  if (!state.userId) return <Style.Error>권한이 없습니다</Style.Error>;
   return (
     <Style.Container>
       <Style.GroupList>
