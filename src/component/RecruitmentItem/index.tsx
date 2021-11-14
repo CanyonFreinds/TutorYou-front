@@ -65,9 +65,20 @@ function RecruitmentItem({
         </Style.CenterContainer>
       </Style.LeftContainer>
       <Style.RightContainer>
+        {applicantCount === totalStudentCount ? (
+        <div style={{ display: 'flex' }}>
+          <Style.FullPeopleCount>
+            {applicantCount}/{totalStudentCount}
+          </Style.FullPeopleCount>
+          <Style.FullPeopleCount>
+            Full
+          </Style.FullPeopleCount>
+        </div>
+        ) : (
         <Style.PeopleCount>
           {applicantCount}/{totalStudentCount}
         </Style.PeopleCount>
+        )}
         <Style.StartDate>
           시작 {startDate}
         </Style.StartDate>

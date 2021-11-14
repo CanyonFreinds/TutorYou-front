@@ -5,13 +5,17 @@ import GoogleIcon from '@mui/icons-material/Google';
 import GitHubIcon from '@mui/icons-material/GitHub';
 import * as Style from './styled';
 import { loginAPI } from '../../api/loginAPI';
+import { getGroupsAPI, GroupType } from '../../api/group';
 import { userStateContext } from '../../context/UserContext';
+import { groupStateContext } from '../../context/GroupContext';
 
 function Login() {
   const history = useHistory();
   const [email, setEmail] = useState('');
   const [pwd, setPwd] = useState('');
   const { dispatch } = useContext(userStateContext);
+  const { groupDispatch }: any = useContext(groupStateContext);
+
   const login = async () => {
     if (email === '' || pwd === '') {
       window.alert('아이디와 비밀번호를 입력해주세요.');
@@ -20,6 +24,21 @@ function Login() {
       if (result && dispatch) {
         dispatch({ type: 'login', payload: result });
         history.push('/');
+
+        const response: any = await getGroupsAPI({ userId: result.userId });
+        console.log('response', response);
+        groupDispatch({ type: 'getGroups', payload: response });
+
+        const groupIds: number[] = [];
+        response.forEach((group: GroupType) => {
+          if (group.studentNames.includes(result.name)) {
+            groupIds.push(group.groupId);
+          }
+        });
+
+        groupDispatch({ type: 'getCurrentUserGroups', payload: groupIds });
+        console.log('groupIds', groupIds);
+        
       }
     }
   };
