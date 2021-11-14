@@ -44,12 +44,11 @@ export const CardList = styled.ul`
   padding: 0;
   width: 100%;
   display: flex;
-  justify-content: space-between;
   flex-wrap: wrap;
 `;
 
 export const CardItem = styled.li`
-  margin-bottom: 6rem;
+  margin: 0 1.5rem 6rem 1.5rem;
 `;
 
 export const Dropdown = styled(NativeSelect)``;
