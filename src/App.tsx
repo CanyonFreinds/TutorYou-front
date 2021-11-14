@@ -31,9 +31,9 @@ function App() {
     <>
       <Header />
       <Switch>
+        <Route exact path={recruitmentsPath} component={Recruitments} />
         <Route path={loginPath} component={LoginPage} />
         <Route path={signupPath} component={SignupPage} />
-        <Route path={recruitmentsPath} component={Recruitments} />
         <Route path={recruitmentPath} component={Recruitment} />
         <Route path={recruitmentWritePath} component={RecruitmentWrite} />
         <Route path={teaturesPath} component={TeachersPage} />

@@ -1,16 +1,18 @@
 import React, { useContext } from 'react';
-import { Link, useLocation } from 'react-router-dom';
+import { Link, useLocation, useHistory } from 'react-router-dom';
 import * as Style from './styled';
 import { teaturesPath, recruitmentsPath, buildProfilePath, adminPath, loginPath, buildGroupPath } from '../../Routes';
 import { userStateContext } from '../../context/UserContext';
 
 function Header() {
   const { pathname } = useLocation();
+  const history = useHistory();
   const { state, dispatch } = useContext(userStateContext);
 
   const handleLogout = () => {
     if (dispatch) {
       dispatch({ type: 'logout' });
+      history.push('/');
     }
   };
 
