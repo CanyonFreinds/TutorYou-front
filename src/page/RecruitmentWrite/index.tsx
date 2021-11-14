@@ -8,7 +8,7 @@ import ko from 'date-fns/locale/ko';
 import * as Style from './styled';
 import { postRecruitmentAPI, putRecruitmentAPI } from '../../api/recruitment';
 import MarkdownEditor from '../../component/MarkdownEditor';
-import { buildRecruitmentPath } from '../../Routes';
+import { buildRecruitmentPath, recruitmentsPath } from '../../Routes';
 import { useRecruitmentPostContext } from '../../context/RecruitmentPostContext';
 import { userStateContext } from '../../context/UserContext';
 
@@ -35,9 +35,10 @@ function RecruitmentWrite() {
   const location = useLocation<LocationProps>();
 
   useEffect(() => {
-    if (!state.userId) {
+    if (!state.userId || !(state.role[0] === 'ROLE_TEACHER')) {
       // 토스트 연결
       console.log('로그인이 되어있지 않습니다.');
+      history.replace(recruitmentsPath);
     }
   }, []);
 
