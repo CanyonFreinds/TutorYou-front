@@ -8,6 +8,7 @@ import RecruitmentDeleteButton from '../../component/RecruitmentDeleteButton';
 import RecruitmentEditButton from '../../component/RecruitmentEditButton';
 import RecruitmentJoinButton from '../../component/RecruitmentJoinButton';
 import { getRecruitmentAPI, deleteRecruitmentAPI } from '../../api/recruitment';
+import { postGroupsAPI } from '../../api/group';
 import * as Style from './styled';
 import { MOMENT_FORMAT } from '../../constants';
 import { recruitmentsPath, recruitmentWritePath, loginPath } from '../../Routes';
@@ -56,7 +57,14 @@ function Recruitment() {
     }
 
     if (isStudent) {
-      showToast('그룹에 참가가 되었습니다.');
+      const response = await postGroupsAPI({ groupId: currentPost.groupId, userId: state.userId });
+
+      if (response) {
+        console.log('response', response);
+        showToast('그룹에 참가가 되었습니다.');
+      } else {
+        showToast('에러가 발생했습니다.');
+      }
     }
   }
   

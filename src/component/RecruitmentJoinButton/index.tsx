@@ -9,6 +9,11 @@ function RecruitmentJoinButton({ onClick }: RecruitmentEditButtonProps) {
   const [open, setOpen] = useState(false);
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
+  const onCustomClick = () => {
+    onClick();
+    handleClose();
+  };
+
   return (
     <>
       <Style.TextTooltip title="그룹 참가">
@@ -27,7 +32,7 @@ function RecruitmentJoinButton({ onClick }: RecruitmentEditButtonProps) {
             그룹에 참가하시겠습니까?
           </Style.Text>
           <Style.ButtonContainer>
-            <Style.MUIButton onClick={onClick} variant="contained" color="primary">참가</Style.MUIButton>
+            <Style.MUIButton onClick={onCustomClick} variant="contained" color="primary">참가</Style.MUIButton>
             <Style.MUIButton onClick={handleClose} variant="contained" color="inherit">취소</Style.MUIButton>
           </Style.ButtonContainer>
         </Style.MUIBox>
