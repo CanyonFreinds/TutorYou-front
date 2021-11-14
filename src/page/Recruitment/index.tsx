@@ -4,6 +4,8 @@ import moment from 'moment';
 
 import { useRecruitmentPostContext } from '../../context/RecruitmentPostContext';
 import MarkdownViewer from '../../component/MarkdownViewer';
+import RecruitmentDeleteButton from '../../component/RecruitmentDeleteButton';
+import RecruitmentEditButton from '../../component/RecruitmentEditButton';
 import { getRecruitmentAPI } from '../../api/recruitment';
 import * as Style from './styled';
 import { MOMENT_FORMAT } from '../../constants';
@@ -71,6 +73,8 @@ function Recruitment() {
       <Style.MarkdownContainer>
         <MarkdownViewer content={currentPost.content} />
       </Style.MarkdownContainer>
+      <RecruitmentDeleteButton />
+      <RecruitmentEditButton />
     </Style.Container>
   );
 }
