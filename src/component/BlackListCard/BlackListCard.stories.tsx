@@ -12,6 +12,7 @@ const dummyBlack = {
   point: 1.3,
   teacherId: 0,
   teacherName: '조개소년',
+  imageSrc: '',
   banCount: 121,
   baned: true,
 };
@@ -20,6 +21,7 @@ const dummyBlack2 = {
   point: 1.2,
   teacherId: 1,
   teacherName: '조개소년',
+  imageSrc: '',
   banCount: 121,
   baned: false,
 };

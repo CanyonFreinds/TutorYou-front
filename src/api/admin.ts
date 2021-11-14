@@ -15,6 +15,7 @@ interface ChangeTeacherBanStateAPIRequest {
 export interface TeacherAdminType {
   banCount: number;
   baned: boolean;
+  imageSrc: string;
   point: number;
   teacherId: number;
   teacherName: string;
