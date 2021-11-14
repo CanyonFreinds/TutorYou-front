@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useContext, useMemo } from 'react';
 import { useParams, useHistory } from 'react-router-dom';
 import moment from 'moment';
 
@@ -10,6 +10,7 @@ import { getRecruitmentAPI, deleteRecruitmentAPI } from '../../api/recruitment';
 import * as Style from './styled';
 import { MOMENT_FORMAT } from '../../constants';
 import { recruitmentsPath, recruitmentWritePath } from '../../Routes';
+import { userStateContext } from '../../context/UserContext';
 
 interface Params {
   postId: string;
@@ -18,7 +19,10 @@ interface Params {
 function Recruitment() {
   const { postId } = useParams<Params>();
   const { setCurrentPost, currentPost }: any = useRecruitmentPostContext();
+  const { state } = useContext(userStateContext);
   const history = useHistory();
+
+  const isCurrentUser = useMemo(() => state.name === currentPost.userName, [state.name, currentPost.userName]);
 
   useEffect(() => { 
     (async () => {
@@ -87,8 +91,8 @@ function Recruitment() {
       <Style.MarkdownContainer>
         <MarkdownViewer content={currentPost.content} />
       </Style.MarkdownContainer>
-      <RecruitmentDeleteButton onClick={onClickDeleteButton} />
-      <RecruitmentEditButton onClick={onClickEditButton} />
+      {isCurrentUser && <RecruitmentDeleteButton onClick={onClickDeleteButton} />}
+      {isCurrentUser && <RecruitmentEditButton onClick={onClickEditButton} />}
     </Style.Container>
   );
 }
