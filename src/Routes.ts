@@ -17,3 +17,5 @@ export const groupPath = '/group/:id';
 export const buildGroupPath = (userId: number) => `/group/${userId}`;
 
 export const signupPath = '/signup';
+
+export const chatPath = '/chatting';

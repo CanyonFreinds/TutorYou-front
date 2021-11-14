@@ -11,6 +11,7 @@ import TeachersPage from './page/Teachers';
 import AdminPage from './page/Admin';
 import GroupPage from './page/Group';
 import SignupPage from './page/Signup';
+import ChattingPage from './page/Chat';
 
 import {
   adminPath,
@@ -22,6 +23,7 @@ import {
   teaturesPath,
   groupPath,
   signupPath,
+  chatPath,
 } from './Routes';
 
 axios.defaults.baseURL = `http://3.36.81.52:8080`;
@@ -40,6 +42,7 @@ function App() {
         <Route path={profilePath} component={ProfilePage} />
         <Route path={adminPath} component={AdminPage} />
         <Route path={groupPath} component={GroupPage} />
+        <Route path={chatPath} component={ChattingPage} />
       </Switch>
     </>
   );
