@@ -33,6 +33,7 @@ export const getChattingRoom = async (userId: number) => {
 
     return response.data as ChattingRoomProps[];
   } catch (error) {
+    window.alert('error');
     return false;
   }
 };
@@ -46,6 +47,24 @@ export const getChat = async (chatRoomId: number) => {
 
     return response.data as ChatProps[];
   } catch (error) {
+    window.alert('error');
+    return false;
+  }
+};
+
+export const createChatRoom = async ({ studentId, teacherId }: CreateChatRoomRequest) => {
+  try {
+    const response = await axios({
+      method: 'POST',
+      url: `/api/v1/chats/rooms`,
+      data: {
+        studentId,
+        teacherId,
+      },
+    });
+    return response.data;
+  } catch (error) {
+    window.alert('error');
     return false;
   }
 };
