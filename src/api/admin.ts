@@ -37,6 +37,7 @@ export const getTeacherListAPI = async ({ pageNumber }: GetTeacherListAPIRequest
     });
     return response.data as GetTeachersAPIResponse;
   } catch (error) {
+    window.alert('error');
     return false;
   }
 };
@@ -50,6 +51,7 @@ export const getBlackListAPI = async ({ pageNumber }: GetBlackListAPIRequest) =>
     });
     return response.data as GetTeachersAPIResponse;
   } catch (error) {
+    window.alert('error');
     return false;
   }
 };
@@ -62,6 +64,7 @@ export const changeTeacherBanStateAPI = async ({ teacherId }: ChangeTeacherBanSt
     });
     return response;
   } catch (error) {
+    window.alert('error');
     return false;
   }
 };

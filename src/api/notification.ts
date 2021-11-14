@@ -20,6 +20,7 @@ export const deleteNotificationAPI = async ({ notificationId }: DeleteNotificati
     });
     return true;
   } catch (error) {
+    window.alert('error');
     return false;
   }
 };

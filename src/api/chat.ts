@@ -33,6 +33,7 @@ export const getChattingRoom = async (userId: number) => {
 
     return response.data as ChattingRoomProps[];
   } catch (error) {
+    window.alert('error');
     return false;
   }
 };
@@ -46,6 +47,7 @@ export const getChat = async (chatRoomId: number) => {
 
     return response.data as ChatProps[];
   } catch (error) {
+    window.alert('error');
     return false;
   }
 };
@@ -62,6 +64,7 @@ export const createChatRoom = async ({ studentId, teacherId }: CreateChatRoomReq
     });
     return response.data;
   } catch (error) {
+    window.alert('error');
     return false;
   }
 };

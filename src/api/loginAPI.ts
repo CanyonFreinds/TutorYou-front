@@ -17,6 +17,7 @@ export const loginAPI = async ({ email, password }: LoginAPIRequest) => {
     });
     return response.data;
   } catch (error) {
+    window.alert('error');
     return false;
   }
 };

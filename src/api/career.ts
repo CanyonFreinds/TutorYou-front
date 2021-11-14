@@ -33,6 +33,7 @@ export const addUserCareerAPI = async ({ userId, careerType, content }: AddUserC
 
     return response.data;
   } catch (error) {
+    window.alert('error');
     return false;
   }
 };
@@ -46,6 +47,7 @@ export const deleteUserCareerapi = async ({ userId, careerId }: DeleteUserCareer
 
     return response.data;
   } catch (error) {
+    window.alert('error');
     return false;
   }
 };

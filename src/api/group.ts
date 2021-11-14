@@ -26,12 +26,12 @@ export const getGroupsAPI = async ({ userId }: GetGoupsAPIRequest) => {
 
     return response.data as GroupType[];
   } catch (error) {
+    window.alert('error');
     return false;
   }
 };
 
-
-export const postGroupsAPI = async ({ groupId, userId }: { groupId: number, userId: number }) => {
+export const postGroupsAPI = async ({ groupId, userId }: { groupId: number; userId: number }) => {
   try {
     const response = await axios({
       method: 'POST',
@@ -40,6 +40,7 @@ export const postGroupsAPI = async ({ groupId, userId }: { groupId: number, user
 
     return response.data as GroupPost;
   } catch (error) {
+    window.alert('error');
     return false;
   }
 };
