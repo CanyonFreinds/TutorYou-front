@@ -1,11 +1,15 @@
-import React, { useState, useEffect, useRef, useCallback } from 'react';
+import React, { useState, useEffect, useRef, useCallback, useContext } from 'react';
+import { useHistory } from 'react-router-dom';
 import * as Style from './styled';
 import BlackListCard from '../../component/BlackListCard';
 import { getBlackListAPI, getTeacherListAPI, changeTeacherBanStateAPI, TeacherAdminType } from '../../api/admin';
+import { userStateContext } from '../../context/UserContext';
 
 type TabType = 'teacher' | 'blacklist';
 
 function Admin() {
+  const history = useHistory();
+  const { state } = useContext(userStateContext);
   const [tab, setTab] = useState<TabType>('teacher');
   const [list, setList] = useState<TeacherAdminType[]>([]);
   const [pageNumber, setPageNumber] = useState(0);
@@ -60,6 +64,13 @@ function Admin() {
     if (tab === 'teacher') getTeacherList();
     else getBlackList();
   }, [tab, pageNumber]);
+
+  useEffect(() => {
+    if (state.role[0] !== 'ROLE_ADMIN') {
+      alert('권한이 없습니다');
+      history.replace('/');
+    }
+  }, [state.role]);
 
   return (
     <Style.Container>

@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
 import { useHistory } from 'react-router-dom';
 import Modal from '@mui/material/Modal';
 import * as Style from './styled';
@@ -6,12 +6,14 @@ import CareerItem from '../../component/CareerItem';
 import ProfileImage from '../../component/ProfileImage';
 import { addUserCareerAPI, deleteUserCareerapi } from '../../api/career';
 import { updateUserImageAPI, changePasswordAPI, deleteUserAPI, ProfileType } from '../../api/user';
+import { userStateContext } from '../../context/UserContext';
 
 function Profile() {
   const history = useHistory();
   const [open, setOpen] = useState(false);
   const [beforePassword, setBeforePassword] = useState('');
   const [afterPassword, setAfterPassword] = useState('');
+  const { state } = useContext(userStateContext);
   const [info, setInfo] = useState<ProfileType>({
     id: 1,
     name: 'string',
@@ -27,7 +29,7 @@ function Profile() {
   };
 
   const changeImage = async (formData: FormData) => {
-    const result = await updateUserImageAPI({ formData, userId: '' });
+    const result = await updateUserImageAPI({ formData, userId: state.userId });
     if (result) {
       setInfo({ ...info, imageSrc: result });
     }
@@ -35,7 +37,7 @@ function Profile() {
 
   const addSchoolCareer = async (value: string) => {
     if (value.length < 5) return;
-    const result = await addUserCareerAPI({ userId: '', careerType: 'EDUCATION_LEVEL', content: value });
+    const result = await addUserCareerAPI({ userId: state.userId, careerType: 'EDUCATION_LEVEL', content: value });
     if (result) {
       setInfo({
         ...info,
@@ -46,7 +48,7 @@ function Profile() {
 
   const addAwardCareer = async (value: string) => {
     if (value.length < 5) return;
-    const result = await addUserCareerAPI({ userId: '', careerType: 'PRIZE_EXP', content: value });
+    const result = await addUserCareerAPI({ userId: state.userId, careerType: 'PRIZE_EXP', content: value });
     if (result) {
       setInfo({
         ...info,
@@ -57,7 +59,7 @@ function Profile() {
 
   const addTutorCareer = async (value: string) => {
     if (value.length < 5) return;
-    const result = await addUserCareerAPI({ userId: '', careerType: 'TUTOR_EXP', content: value });
+    const result = await addUserCareerAPI({ userId: state.userId, careerType: 'TUTOR_EXP', content: value });
     if (result) {
       setInfo({
         ...info,
@@ -68,21 +70,21 @@ function Profile() {
 
   const deleteCareer = async (id: number) => {
     const filteredCareer = info.careers.filter((career) => career.careerId !== id);
-    const result = await deleteUserCareerapi({ userId: '', careerId: '' });
+    const result = await deleteUserCareerapi({ userId: state.userId, careerId: '' });
     if (result) {
       setInfo({ ...info, careers: filteredCareer });
     }
   };
 
   const removeUser = async () => {
-    const result = await deleteUserAPI({ userId: '' });
+    const result = await deleteUserAPI({ userId: state.userId });
     if (result) {
       history.push('/');
     }
   };
 
   const changePassword = async () => {
-    await changePasswordAPI({ userId: '', beforePassword, afterPassword });
+    await changePasswordAPI({ userId: state.userId, beforePassword, afterPassword });
   };
 
   return (
